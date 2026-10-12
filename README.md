@@ -1,62 +1,45 @@
-# melonDS Android port
-Android port of [melonDS](https://melonds.kuribo64.net/), a DS and DSi emulator.
+# LemonDS
 
-[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=me.magnum.melonds&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)[<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png" alt="Get it on GitHub" height="80">](https://github.com/rafaelvcaetano/melonDS-android/releases/latest)
+LemonDS is a slimmed-down fork of [melonDS-android](https://github.com/rafaelvcaetano/melonDS-android) (an Android port of the [melonDS](https://melonds.kuribo64.net/) Nintendo DS emulator) built around easy same-Wi-Fi multiplayer.
 
-|Rom List|Dark Theme|Pocket Physics|Layout Editor|
-|---|---|---|---|
-|![Screenshot 1](./.github/images/screenshot_mobile0.png)|![Screenshot 2](./.github/images/screenshot_mobile1.png)|![Screenshot 3](./.github/images/screenshot_mobile2.png)|![Screenshot 4](./.github/images/screenshot_mobile3.png)|
+**LemonDS does not include any games, BIOS or firmware files.** You must supply your own, legally obtained.
 
-# Missing Features
-*  Local Multiplayer
-*  DSi SD card support
-*  Customizable button skins
-*  More display filters
+## What is different from melonDS-android
 
-# Performance
-Performance is solid on 64 bit devices with thread rendering and JIT enabled, and should run at full speed on flagship devices. Performance on older devices, specially
-32 bit devices, is very poor due to the lack of JIT support.
+- **One-tap LAN multiplayer.** Both devices join the same Wi-Fi network. One device taps **HOST** (Player 1) and the other taps **JOIN** (Player 2). There are no names or IP addresses to type.
+- **Slimmed down.** RetroAchievements, DSi mode, GBA slot support and microphone support have been removed.
+- **Optional frameskip.** Settings > Video > Frameskip. (Added recently and not widely tested.)
+- **LAN timing and Wi-Fi channel fixes** in the emulator core, kept in the [melonDS-android-lib fork](https://github.com/Mormot123/melonDS-android-lib/tree/lemonds) (branch `lemonds`).
 
-# Integration with third-party frontends
-It's possible to launch melonDS from third part frontends. For that, you will need to have the ROMs you want to launch already scanned by melonDS. Then, you can configure your
-third-party frontend with the following configuration:
-*  Package name: `me.magnum.melonds`
-*  Activity name: `me.magnum.melonds.ui.emulator.EmulatorActivity`
-*  Parameters (choose one):
-    * Intent data (preferred) - a URI of the NDS ROM (ZIP and 7z files are supported). Ensure [read permission is granted](https://developer.android.com/reference/android/content/Intent#FLAG_GRANT_READ_URI_PERMISSION)
-    * `uri` (deprecated) - a string with the [SAF](https://developer.android.com/guide/topics/providers/create-document-provider) URI of the NDS ROM (ZIP and 7z files are supported)
-    * `PATH` (deprecated) - a string with the absolute path to the NDS ROM (ZIP and 7z files are supported)
+## Tested devices and honest limits
 
-### Pegasus metadata files
-* [melonds.metadata.txt](./.github/pegasus/melonds.metadata.txt) 
-* [melonds-nightly.metadata.txt](./.github/pegasus/melonds-nightly.metadata.txt) 
+- Developed and tested on the **Retroid Pocket 5** and **Retroid Pocket Flip2**. Two-device LAN play with **Tetris DS** worked.
+- Slow devices such as the **Anbernic RG DS / RG DS Plus** are too slow for demanding games like *New Super Mario Bros.*, with or without LAN.
+- Other games have not been tested. *Pokemon* and *Mario Kart DS* did not connect in my testing.
 
-### Info regarding save files
-When launching ROMs from third-party frontends, if melonDS hasn't scanned that particular ROM previously, it won't be able to create the save file next to the ROM file if the
-option "Save next to ROM file" is enabled in the settings or the save file directory is not set. Instead, melonDS will create a save file in
-`Android/data/me.magnum.melonds/files/saves`
+## Known issues
 
-# Nightly Builds
+- After a failed or finished LAN session, you may need to fully close and reopen the app before hosting or joining again.
+- LAN speed is limited by the slower of the two devices and by Wi-Fi quality.
 
-To have access to the latest changes, you can install nightly builds that you can find [here](https://github.com/rafaelvcaetano/melonDS-android/releases/tag/nightly-release).
+## Building
 
-Be aware that these builds can contain more bugs than usual and you may need to clear your app data to get it to work properly after updates.
+You need Android Studio, the Android NDK and CMake. The project uses git submodules, so clone with them:
 
-# Building
-To build the project you will need Android SDK, NDK and CMake.
+```
+git clone --recurse-submodules https://github.com/Mormot123/LemonDS.git
+```
 
-## Build steps:
-1.  Clone the project, including submodules with:
-    
-    `git clone --recurse-submodules https://github.com/rafaelvcaetano/melonDS-android.git`
-2.  Install the Android SDK, NDK and CMake
-3.  Build with:
-    1.  Unix: `./gradlew :app:assembleGitHubProdDebug`
-    2.  Windows: `gradlew.bat :app:assembleGitHubProdDebug`
-4.  The generated APK can be found at `app/gitHubProd/debug`
+Then open the folder in Android Studio and build the `app` module.
 
-If you want to create a release build, you will need to modify your `local.properties` file to include the following fields:  
-*  `MELONDS_KEYSTORE=<path_to_your_keystore>`
-*  `MELONDS_KEYSTORE_PASSWORD=<keystore_password>`
-*  `MELONDS_KEY_ALIAS=<name_of_your_key_alias>`
-*  `MELONDS_KEY_PASSWORD=<key_alias_password>`
+## Credits and license
+
+LemonDS is built on the work of others:
+
+- **melonDS** by Arisotura and contributors.
+- **melonDS-android** by Rafael Caetano and contributors.
+- Third-party libraries as included in this repository (ENet, Oboe, FAAD2 and others), under their own licenses.
+
+LemonDS is licensed under the **GNU General Public License v3.0**, the same as the projects it is based on. See [LICENSE](LICENSE). The complete source for every release is in this repository.
+
+LemonDS is not affiliated with or endorsed by Nintendo, the melonDS team, or the melonDS-android author.
