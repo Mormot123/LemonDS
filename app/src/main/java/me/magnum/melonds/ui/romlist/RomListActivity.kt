@@ -31,8 +31,8 @@ import me.magnum.melonds.domain.model.rom.Rom
 import me.magnum.melonds.parcelables.RomParcelable
 import me.magnum.melonds.ui.common.melonTextButtonColors
 import me.magnum.melonds.ui.common.rom.EmulatorLaunchValidatorDelegate
-import me.magnum.melonds.ui.dsiwaremanager.DSiWareManagerActivity
 import me.magnum.melonds.ui.emulator.EmulatorActivity
+import me.magnum.melonds.ui.lan.LanLobbyActivity
 import me.magnum.melonds.ui.romdetails.RomDetailsActivity
 import me.magnum.melonds.ui.romlist.ui.DownloadProgressDialog
 import me.magnum.melonds.ui.romlist.ui.NightlyUpdateDialog
@@ -51,6 +51,9 @@ class RomListActivity : AppCompatActivity() {
         installSplashScreen()
         enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
         super.onCreate(savedInstanceState)
+        if (me.magnum.melonds.ui.common.SecondaryDisplayLauncher.relocateIfNeeded(this)) {
+            return
+        }
 
         val emulatorLauncherValidatorDelegate = EmulatorLaunchValidatorDelegate(this, object : EmulatorLaunchValidatorDelegate.Callback {
             override fun onRomValidated(rom: Rom) {
@@ -132,8 +135,8 @@ class RomListActivity : AppCompatActivity() {
                         val intent = Intent(this@RomListActivity, SettingsActivity::class.java)
                         startActivity(intent)
                     },
-                    onNavigateToDsiWareManager = {
-                        val intent = Intent(this@RomListActivity, DSiWareManagerActivity::class.java)
+                    onNavigateToLan = {
+                        val intent = Intent(this@RomListActivity, LanLobbyActivity::class.java)
                         startActivity(intent)
                     },
                     retrieveRomIcon = { rom ->

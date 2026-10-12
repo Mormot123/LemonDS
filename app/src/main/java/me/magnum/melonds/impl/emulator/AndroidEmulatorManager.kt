@@ -20,8 +20,6 @@ import me.magnum.melonds.domain.model.MicSource
 import me.magnum.melonds.domain.model.emulator.EmulatorEvent
 import me.magnum.melonds.domain.model.emulator.FirmwareLaunchResult
 import me.magnum.melonds.domain.model.emulator.RomLaunchResult
-import me.magnum.melonds.domain.model.retroachievements.GameAchievementData
-import me.magnum.melonds.domain.model.retroachievements.RAEvent
 import me.magnum.melonds.domain.model.rom.Rom
 import me.magnum.melonds.domain.model.rom.config.RomGbaSlotConfig
 import me.magnum.melonds.domain.model.rom.config.RuntimeConsoleType
@@ -45,42 +43,11 @@ class AndroidEmulatorManager(
     private val _emulatorEvents = MutableSharedFlow<EmulatorEvent>(extraBufferCapacity = Int.MAX_VALUE)
     override val emulatorEvents: Flow<EmulatorEvent> = _emulatorEvents.asSharedFlow()
 
-    private val achievementsSharedFlow = MutableSharedFlow<RAEvent>(replay = 0, extraBufferCapacity = Int.MAX_VALUE)
-
     private val messageQueue = EmulatorMessageQueue { type, data ->
         when (type) {
             EmulatorEventType.EventRumbleStart -> _emulatorEvents.tryEmit(EmulatorEvent.RumbleStart(data.getInt()))
             EmulatorEventType.EventRumbleStop -> _emulatorEvents.tryEmit(EmulatorEvent.RumbleStop)
             EmulatorEventType.EventEmulatorStop -> getStopReason(data.getInt())?.let { _emulatorEvents.tryEmit(EmulatorEvent.Stop(it)) }
-            EmulatorEventType.EventRAAchievementPrimed -> achievementsSharedFlow.tryEmit(RAEvent.OnAchievementPrimed(data.getLong()))
-            EmulatorEventType.EventRAAchievementTriggered -> achievementsSharedFlow.tryEmit(RAEvent.OnAchievementTriggered(data.getLong()))
-            EmulatorEventType.EventRAAchievementUnprimed -> achievementsSharedFlow.tryEmit(RAEvent.OnAchievementUnPrimed(data.getLong()))
-            EmulatorEventType.EventRAAchievementProgressUpdated -> {
-                val event = RAEvent.OnAchievementProgressUpdated(
-                    achievementId = data.getLong(),
-                    current = data.getInt(),
-                    target = data.getInt(),
-                    progress = String(ByteArray(data.getInt()).apply { data.get(this) }),
-                )
-                achievementsSharedFlow.tryEmit(event)
-            }
-            EmulatorEventType.EventRALeaderboardAttemptStarted -> achievementsSharedFlow.tryEmit(RAEvent.OnLeaderboardAttemptStarted(data.getLong()))
-            EmulatorEventType.EventRALeaderboardAttemptUpdated -> {
-                val event = RAEvent.OnLeaderboardAttemptUpdated(
-                    leaderboardId = data.getLong(),
-                    formattedValue = String(ByteArray(data.getInt()).apply { data.get(this) }),
-                )
-                achievementsSharedFlow.tryEmit(event)
-            }
-            EmulatorEventType.EventRALeaderboardAttemptCanceled -> achievementsSharedFlow.tryEmit(RAEvent.OnLeaderboardAttemptCancelled(data.getLong()))
-            EmulatorEventType.EventRALeaderboardAttemptCompleted -> {
-                val event = RAEvent.OnLeaderboardAttemptCompleted(
-                    leaderboardId = data.getLong(),
-                    value = data.getInt(),
-                    formattedValue = String(ByteArray(data.getInt()).apply { data.get(this) }),
-                )
-                achievementsSharedFlow.tryEmit(event)
-            }
         }
     }
 
@@ -98,22 +65,13 @@ class AndroidEmulatorManager(
                 return@withContext RomLaunchResult.LaunchFailedSramProblem(exception)
             }
 
-            val gbaSlotRomConfig = rom.config.gbaSlotConfig
-            val gbaSlotType = when (gbaSlotRomConfig) {
-                RomGbaSlotConfig.None -> MelonEmulator.GbaSlotType.NONE
-                is RomGbaSlotConfig.GbaRom -> MelonEmulator.GbaSlotType.GBA_ROM
-                RomGbaSlotConfig.MemoryExpansion -> MelonEmulator.GbaSlotType.MEMORY_EXPANSION
-                RomGbaSlotConfig.RumblePak -> MelonEmulator.GbaSlotType.RUMBLE_PAK
-                RomGbaSlotConfig.MotionPakHomebrew -> MelonEmulator.GbaSlotType.MOTION_PAK_HOMEBREW
-                RomGbaSlotConfig.MotionPakRetail -> MelonEmulator.GbaSlotType.MOTION_PAK_RETAIL
-            }
-
+            // GBA slot support has been removed: the slot is always empty
             val loadResult = MelonEmulator.loadRom(
                 romUri = romUri,
                 sramUri = sram,
-                gbaSlotType = gbaSlotType,
-                gbaRomUri = (gbaSlotRomConfig as? RomGbaSlotConfig.GbaRom)?.romPath,
-                gbaSramUri = (gbaSlotRomConfig as? RomGbaSlotConfig.GbaRom)?.savePath
+                gbaSlotType = MelonEmulator.GbaSlotType.NONE,
+                gbaRomUri = null,
+                gbaSramUri = null
             )
             if (loadResult.isTerminal || !isActive) {
                 cameraManager.stopCurrentCameraSource()
@@ -122,6 +80,7 @@ class AndroidEmulatorManager(
             } else {
                 messageQueue.start()
                 MelonEmulator.setupCheats(cheats.toTypedArray())
+                MelonEmulator.setFrameSkip(settingsRepository.getFrameSkip())
                 MelonEmulator.startEmulation()
 
                 RomLaunchResult.LaunchSuccessful(loadResult != MelonEmulator.LoadResult.SUCCESS_GBA_FAILED)
@@ -139,6 +98,7 @@ class AndroidEmulatorManager(
                 FirmwareLaunchResult.LaunchFailed(result)
             } else {
                 messageQueue.start()
+                MelonEmulator.setFrameSkip(settingsRepository.getFrameSkip())
                 MelonEmulator.startEmulation()
                 FirmwareLaunchResult.LaunchSuccessful
             }
@@ -179,24 +139,6 @@ class AndroidEmulatorManager(
         MelonEmulator.setupCheats(cheats.toTypedArray())
     }
 
-    override suspend fun setupRetroAchievements(achievementData: GameAchievementData) {
-        val richPresencePath = if (settingsRepository.isRetroAchievementsRichPresenceEnabled()) {
-            achievementData.richPresencePatch
-        } else {
-            null
-        }
-
-        MelonEmulator.setupAchievements(
-            achievements = achievementData.lockedAchievements.toTypedArray(),
-            leaderboards = achievementData.leaderboards.toTypedArray(),
-            richPresenceScript = richPresencePath,
-        )
-    }
-
-    override fun unloadRetroAchievementsData() {
-        MelonEmulator.unloadRetroAchievementsData()
-    }
-
     override suspend fun loadRewindState(rewindSaveState: RewindSaveState): Boolean {
         return MelonEmulator.loadRewindState(rewindSaveState)
     }
@@ -224,10 +166,6 @@ class AndroidEmulatorManager(
         messageQueue.cleanup()
     }
 
-    override fun observeRetroAchievementEvents(): Flow<RAEvent> {
-        return achievementsSharedFlow.asSharedFlow()
-    }
-
     private fun setupEmulator(emulatorConfiguration: EmulatorConfiguration) {
         MelonEmulator.setupEmulator(
             emulatorConfiguration = emulatorConfiguration,
@@ -243,7 +181,7 @@ class AndroidEmulatorManager(
             useCustomBios = mustUseCustomBios,
             showBootScreen = baseConfiguration.showBootScreen && mustUseCustomBios,
             consoleType = getRomOptionOrDefault(rom.config.runtimeConsoleType, baseConfiguration.consoleType),
-            micSource = getRomOptionOrDefault(rom.config.runtimeMicSource, baseConfiguration.micSource)
+            micSource = MicSource.NONE
         ).run { getPermissionAdjustedConfiguration(this) }
     }
 

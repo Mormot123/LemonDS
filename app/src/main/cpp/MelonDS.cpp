@@ -23,7 +23,6 @@
 #include "AndroidCameraHandler.h"
 #include "renderer/ScreenshotRenderer.h"
 #include "renderer/FrameQueue.h"
-#include "retroachievements/RetroAchievementsManager.h"
 #include "net/Net.h"
 #include "net/Net_Slirp.h"
 #include <fstream>
@@ -62,7 +61,6 @@ namespace MelonDSAndroid
     {
         cameraHandler = androidCameraHandler;
         eventMessenger = androidEventMessenger;
-        RetroAchievements::RetroAchievementsManager::EventMessenger = androidEventMessenger;
 
         auto instanceArgs = BuildArgsFromConfiguration(*currentConfiguration, instanceId);
         if (!instanceArgs.has_value())
@@ -87,30 +85,6 @@ namespace MelonDSAndroid
     void setCodeList(std::list<Cheat> cheats)
     {
         instance->loadCheats(std::move(cheats));
-    }
-
-    void setupAchievements(
-        std::list<RetroAchievements::RAAchievement> achievements,
-        std::list<RetroAchievements::RALeaderboard> leaderboards,
-        std::optional<std::string> richPresenceScript
-    )
-    {
-        instance->setupAchievements(std::move(achievements), std::move(leaderboards), std::move(richPresenceScript));
-    }
-
-    void unloadRetroAchievementsData()
-    {
-        instance->unloadRetroAchievementsData();
-    }
-
-    std::string getRichPresenceStatus()
-    {
-        return instance->getRichPresenceStatus();
-    }
-
-    std::vector<RetroAchievements::RARuntimeAchievement> getRuntimeAchievements()
-    {
-        return instance->getRuntimeAchievements();
     }
 
     /**
@@ -372,6 +346,11 @@ namespace MelonDSAndroid
 
         instance = nullptr;
         eventMessenger = nullptr;
+    }
+
+    bool hasActiveInstance()
+    {
+        return instance != nullptr;
     }
 
     bool setupOpenGlContext()

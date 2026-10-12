@@ -42,7 +42,7 @@ class Migration24to25(
                     ),
                     rom.lastPlayed,
                     it.isDSiWareTitle,
-                    it.retroAchievementsHash,
+                    "",
                 )
             }
         }

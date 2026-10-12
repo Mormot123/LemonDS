@@ -36,24 +36,47 @@ android {
         versionName = AppConfig.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters.addAll(listOf("arm64-v8a", "x86_64"))
+            // arm64 only. The RG DS is a 64 bit ARM device, and every extra ABI ships another full copy of the emulator core
+            abiFilters.add("arm64-v8a")
         }
         externalNativeBuild {
             cmake {
-                cppFlags("-std=c++17 -Wno-write-strings")
+                // Both RG DS models use a Rockchip RK3568 (quad Cortex-A55). -mtune only changes how instructions are scheduled for that core,
+                // it never adds instructions the CPU might lack, so the build still runs on any 64 bit ARM device
+                cFlags("-mtune=cortex-a55")
+                cppFlags("-std=c++17 -Wno-write-strings -mtune=cortex-a55")
             }
         }
+    }
+    androidResources {
+        // Keep English only. This also drops the translated strings that every bundled library carries
+        localeFilters += listOf("en")
     }
     buildFeatures {
         viewBinding = true
         compose = true
     }
+    lint {
+        // Lint style problems should never stop an APK from being built
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            // Minification is off by default here because it is the most likely place for an untested build to fail.
+            // Set the local.properties flag MELONDS_MINIFY=true to turn it back on for a smaller APK
+            val minify = rootProject.file("local.properties").takeIf { it.exists() }?.let { f ->
+                Properties().apply { load(f.inputStream()) }["MELONDS_MINIFY"] == "true"
+            } ?: false
+            isMinifyEnabled = minify
+            isShrinkResources = minify
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("release")
+            // Without a real release keystore configured, sign with the debug key so the optimized build can still be installed
+            signingConfig = if (signingConfigs.getByName("release").storeFile != null) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
         getByName("debug") {
             applicationIdSuffix = ".dev"
@@ -62,18 +85,15 @@ android {
 
     flavorDimensions += listOf("version", "build")
     productFlavors {
+        // The Play Store flavor has no update checker and no networking libraries, so it is the lightest one
         create("playStore") {
             dimension = "version"
+            isDefault = true
             versionNameSuffix = " PS"
         }
         create("gitHub") {
             dimension = "version"
-            isDefault = true
             versionNameSuffix = " GH"
-            ndk {
-                // Add 32 bit support only on GitHub releases
-                abiFilters.add("armeabi-v7a")
-            }
         }
 
         create("prod") {
@@ -115,14 +135,11 @@ room {
 
 dependencies {
     implementation(projects.masterswitch)
-    implementation(projects.rcheevosApi)
     implementation(projects.common)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.camera2)
-    implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
@@ -135,7 +152,6 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.room)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.rxjava)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.window)
@@ -144,7 +160,6 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.foundation)
-    implementation(libs.compose.markdown)
     implementation(libs.compose.material)
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icons)
@@ -158,7 +173,6 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.hilt)
     implementation(libs.kotlin.serialization)
-    implementation(libs.kotlinx.coroutines.rx)
     implementation(libs.picasso)
     implementation(libs.commons.compress)
     implementation(libs.xz)

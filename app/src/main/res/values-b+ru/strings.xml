@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">melonDS</string>
+    <string name="app_name">LemonDS</string>
 
     <string name="ok">OK</string>
     <string name="yes">Да</string>
@@ -62,32 +62,7 @@
     <string name="download_progress_sizes">%1$.1f МБ/%2$.1f МБ</string>
     <string name="update_download_failed">Не удалось загрузить обновление</string>
 
-    <string name="dsiware_manager">Менеджер DSiWare</string>
-    <string name="no_dsiware_titles_installed">Нет установленных игр DSiWare</string>
-    <string name="dsiware_manager_no_dsi_setup">Система DSi не настроена</string>
-    <string name="dsiware_manager_invalid_dsi_setup">Неправильная конфигурация системы DSi</string>
-    <string name="import_dsiware_title">Импорт игры DSiWare</string>
-    <string name="dsiware_manager_setup">Настройка</string>
-    <string name="dsiware_manager_fix_setup">Исправить настройки</string>
-    <string name="dsiware_manager_load_error">Ошибка при создании списка игр DSiWare. Проверьте настройки DSi</string>
-    <string name="dsiware_manager_import_title_error_open_nand_failed">Не удалось открыть NAND</string>
-    <string name="dsiware_manager_import_title_error_open_file_failed">Ошибка запуска выбранного файла</string>
-    <string name="dsiware_manager_import_title_error_not_dsiware_title">Не является образом игры DSiWare</string>
-    <string name="dsiware_manager_import_title_error_title_already_imported">Данный образ DSiWare уже импортирован</string>
-    <string name="dsiware_manager_import_title_error_insatll_failed">Не удалось установить игру</string>
-    <string name="dsiware_manager_import_title_error_metadat_fetch_failed">Не удалось загрузить метаданные игры. Проверьте соединение с Интернет</string>
-    <string name="dsiware_manager_import_title_error_unknown">Неизвестная ошибка</string>
-    <string name="dsiware_manager_import_data">Импорт данных…</string>
-    <string name="dsiware_manager_export_data">Экспорт данных…</string>
-    <string name="dsiware_manager_import_file_success">%1$s успешно импортировано</string>
-    <string name="dsiware_manager_import_file_error">Не удалось импортировать файл</string>
-    <string name="dsiware_manager_export_file_success">%1$s успешно экспортировано</string>
-    <string name="dsiware_manager_export_file_error">Не удалось экспортировать файл</string>
-    <string name="dsiware_import_from_file">Из файла</string>
-    <string name="dsiware_import_from_rom_list">Из списка игр</string>
 
-    <string name="select_dsiware_title">Выберите игру DSiWare</string>
-    <string name="no_dsiware_roms_found">Не найдены игры DSiWare</string>
     
     <string name="info_fps">FPS: %1$d</string>
     <string name="info_play_time_hours_minutes">Время в игре: %1$dh %2$dm</string> <!-- Ex: 4h 28m -->
@@ -99,11 +74,9 @@
     <string name="cant_load_empty_slot">Невозможно загрузить пустой слот</string>
     <string name="failed_reset_emulation">Не удалось перезапустить эмуляцию</string>
     <string name="save_states_not_supported">Сохранения недоступны во время загрузки прошивки</string>
-    <string name="save_states_unavailable_ra_hardcore_enabled">Сохранение недоступно в режиме хардкора</string>
     <string name="rewind_time_seconds">%1$ss</string>
     <string name="rewind_time_minutes_seconds">%1$dm%2$ss</string>
     <string name="rewind_not_enabled">Обратная перемотка не включена</string>
-    <string name="rewind_unavailable_ra_hardcore_enabled">Обратная перемотка недоступна в режиме хардкора</string>
     <string name="no_image_selected">Образ не выбран</string>
     <string name="failed_to_load_image">Не удалось загрузить образ</string>
     <string name="emulator_stop_gba_mode_unsupported">Режим GBA не поддерживается</string>
@@ -114,8 +87,6 @@
 
     <string name="ds_bios_dir_not_set">Не задан каталог BIOS DS</string>
     <string name="ds_bios_dir_not_set_info">Не задан каталог BIOS DS. Укажите путь к каталогу с файлами:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
-    <string name="dsi_bios_dir_not_set">Не задан каталог BIOS DSi</string>
-    <string name="dsi_bios_dir_not_set_info">Не задан каталог BIOS DSi. Укажите путь к каталогу с файлами:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
     <string name="incorrect_bios_dir">Неправильный каталог BIOS</string>
     <string name="ds_incorrect_bios_dir_info">Неправильный каталог BIOS DS. Убедитесь, что выбранный каталог содержит файлы:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
     <string name="dsi_incorrect_bios_dir_info">Неправильный каталог BIOS DSi. Убедитесь, что выбранный каталог содержит файлы:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
@@ -135,10 +106,6 @@
     <string name="rom_launch_custom_bios_firmware_bad_setup">Данный образ игры преднастроен для запуска на кастомной прошивке и BIOS, но неправильно сконфигурирован.</string>
     <string name="firmware_launch_failed">Не удалось запустить прошивку</string>
     <string name="firmware_launch_bad_setup">Для запуска данной прошивки требуются кастомные образы BIOS и прошивки, но они неправильно сконфигурированы.</string>
-    <string name="failed_launch_dsiware_title">Не удалось запустить образ игры DSiWare</string>
-    <string name="failed_launch_dsiware_title_check_failed">Не удалось проверить установку образа игры DSiWare. Для дополнительной информации откройте DSiWare Manager.</string>
-    <string name="failed_launch_dsiware_title_rom_failed">Не удалось обработать образ игры. Проверьте заголовок и убедитесь, что файл не повреждён.</string>
-    <string name="failed_launch_dsiware_title_not_installed">Перед запуском DSiWare образ игры необходимо предварительно установить в NAND. Для установки воспользуйтесь DSiWare Manager.</string>
 
     <string name="press_any_button">Нажмите любую кнопку…</string>
     <string name="waiting_for_input">Ожидание нажатия…</string>
@@ -146,7 +113,6 @@
     <string name="choose_component">Выберите компонент</string>
 
     <string name="pause">Пауза</string>
-    <string name="achievements">Достижения</string>
     <string name="reset">Сброс</string>
     <string name="exit">Выход</string>
 
@@ -190,7 +156,6 @@
     <string name="custom_bios_firmware">Ручной выбор BIOS и прошивки</string>
     <string name="custom_bios_firmware_description">Использование внешних образов BIOS и прошивки позволяет запускать и настраивать программное обеспечение DS как на реальной консоли, без запуска игр.</string>
     <string name="bios_directory">Каталог BIOS DS</string>
-    <string name="dsi_bios_directory">Каталог BIOS DSi</string>
     <string name="show_boot_screen">Показывать экран загрузки</string>
     <string name="mac_address">MAC-адрес</string>
     <string name="randomize_mac_address">Случайный MAC-адрес</string>
@@ -202,9 +167,9 @@
     <string name="jit_not_supported">JIT доступен только для 64-битных устройств.</string>
     <string name="backup_settings">Резервировать настройки</string>
     <string name="restore_settings">Восстановить настройки</string>
-    <string name="settings_backup_success">Создана резервная копия настроек.\n\nПропущенные файлы:\n&#8226; сеанс RetroAchievements\n&#8226; каталоги игр/сохранений\n&#8226; каталог BIOS DS\n&#8226; каталог BIOS DSi</string>
+    <string name="settings_backup_success">Создана резервная копия настроек.\n\nПропущенные файлы:\n&#8226; каталоги игр/сохранений\n&#8226; каталог BIOS DS\n&#8226; каталог BIOS DSi</string>
     <string name="settings_backup_error">Не удалось резервировать настройки</string>
-    <string name="settings_restore_success">Настройки восстановлены.\n\nФайлы без изменений:\n&#8226; сеанс RetroAchievements\n&#8226; каталоги игр/сохранений\n&#8226; каталог BIOS DS\n&#8226; каталог BIOS DSi</string>
+    <string name="settings_restore_success">Настройки восстановлены.\n\nФайлы без изменений:\n&#8226; каталоги игр/сохранений\n&#8226; каталог BIOS DS\n&#8226; каталог BIOS DSi</string>
     <string name="settings_restore_error">Не удалось восстановить настройки</string>
     <string name="backup_internal_layout">Резервировать внутреннюю раскладку</string>
     <string name="backup_external_layout">Резервировать внешнюю раскладку</string>
@@ -226,12 +191,10 @@
     <string name="filter">Сглаживание</string>
     <string name="internal_resolution">Внутреннее разрешение</string>
     <string name="renderer">Графический движок</string>
-    <string name="dsi_camera_source">Источник камеры DSi</string>
     <string name="external_screen_layout">Раскладка доп. экрана</string>
     <string name="external_display_screen">Изображение доп. экрана</string>
     <string name="external_display_rotate_left">Повернуть доп. экран влево</string>
     <string name="refresh_external_screen">Обновить доп. экран</string>
-    <string name="dsi_camera_image">Образ камеры DSi</string>
     <string name="internal_screen_layout">Раскладка основного экрана</string>
     <string name="input_refresh_external_screen">Обновить доп. экран</string>
     <string name="quick_settings">Быстрые настройки</string>
@@ -259,18 +222,6 @@
     <string name="vibrate_on_touch">Сенсорный отклик</string>
     <string name="vibration_strength">Интенсивность вибрации</string>
     <string name="soft_input_opacity">Видимость экранных кнопок</string>
-    <string name="retroachievements">RetroAchievements</string> <!-- Keep words together because this is the official name -->
-    <string name="retroachievements_summary">Авторизация и настройки RetroAchievements</string> <!-- Keep words together because this is the official name -->
-    <string name="enable_rich_presence">Статус активности</string>
-    <string name="rich_presence_summary">Позволяет другим пользователям RetroAchievements видеть запущенную вами игру.</string>
-    <string name="hardcore_mode">Режим хардкора</string>
-    <string name="hardcore_mode_summary">Удваивает количество очков, но запрещает быстрые сохранения, чит-коды и замедление геймплея</string>
-    <string name="show_active_challenge_indicators">Показывать значки активных испытаний</string>
-    <string name="show_active_challenge_indicators_summary">Отображать на экране индикаторы при возможности получить определённые достижения</string>
-    <string name="show_progress_indicators">Показывать индикаторы прогресса</string>
-    <string name="show_progress_indicators_summary">Отображать индикаторы при прогрессе в получении достижения</string>
-    <string name="show_leaderboard_indicators">Показывать индикаторы таблиц лидеров</string>
-    <string name="show_leaderboard_indicators_summary">Отображать индикаторы во время попытки занесения в таблицу лидеров</string>
 
     <string name="cheats">Чит-коды</string>
     <string name="cheats_summary">Включение и импорт чит-кодов</string>
@@ -319,7 +270,6 @@
     <string name="label_rom_config_gba_rom_path">Путь к рому GBA</string>
     <string name="label_rom_config_gba_save_path">Путь к сохранению GBA</string>
     <string name="rom_details_configuration_tab">Конфигурация</string>
-    <string name="retro_achievements_tab">Retro&#8203;Achievements</string> <!-- Keep zero-width space to allow line breaks in the middle of the word -->
 
     <string name="theme_option_light">Светлая</string>
     <string name="theme_option_dark">Тёмная</string>
@@ -406,64 +356,8 @@
     <string name="background_deleted">Задний фон удалён</string>
     <string name="background_add_processing_failed">Не удалось обработать выбранное изображение. Убедитесь, что файл не повреждён.</string>
     
-    <string name="retro_achievements_login_description">Выполните вход в RetroAchievements для загрузки доступных достижений для данной игры.</string>
-    <string name="login_with_retro_achievements">Выполнить вход в RetroAchievements</string>
-    <string name="login">Вход</string>
-    <string name="retroachievements_login_summary">Выполните вход в RetroAchievements для получения достижений во время игры.</string>
-    <string name="retroachievements_login_status">Выполнен вход для %1$s</string>
-    <string name="retroachievements_logout">Выход</string>
-    <string name="retroachievements_logout_confirmation">Вы подтверждаете выход из RetroAchievements? Получение достижений во время игры будет недоступно.</string>
-    <string name="retro_achievements_login_error">Не удалось авторизоваться. Проверьте соединение с Интернет и правильность ввода имени пользователя и пароля.</string>
-    <string name="retro_achievements_login_error_short">При авторизации возникла ошибка.</string>
-    <string name="retro_achievements_load_error">Не удалось загрузить достижения для данной игры. Проверьте соединение с Интернет и повторите попытку.</string>
-    <string name="retro_achievements_no_achievements">Не найдены доступные достижения для данной игры.</string>
-    <string name="retro_achievements_relaunch_to_apply_settings">Перезапустите игру, чтобы применить изменения настроек RetroAchievements</string>
-    <string name="retro_achievements_pending_unlocks">Ожидают разблокировки</string>
-    <string name="retro_achievements_active_challenges">Активные испытания</string>
-    <string name="retro_achievements_recently_unlokced">Открытые недавно</string>
-    <string name="retro_achievements_almost_there">Почти у цели</string>
-    <string name="retro_achievements_locked">Закрытые</string>
-    <string name="retro_achievements_unlocked">Открытые</string>
     <string name="username">Имя пользователя</string>
     <string name="password">Пароль</string>
-    <string name="retry">Повторить</string>
-    <string name="points_abbreviated">очк.</string>
-    <string name="points">Очки</string>
-    <string name="completed">Завершено</string>
-    <string name="ra_mode_hardcore">хардкор</string>
-    <string name="ra_mode_softcore">софткор</string>
-    <string name="ra_base_set">Основной сет</string>
-    <string name="view_achievement">Просмотр достижения</string>
-    <string name="completed_achievements"><b>%1$d</b> из <b>%2$d</b> (%3$d%%)</string>
-    <string name="submitting_achievements">Отправка RetroAchievements…</string>
-    <string name="achievements_loaded">Достижения загружены</string>
-    <string name="achievements_unlocked_compact">Открыто: %1$d/%2$d</string>
-    <string name="game_has_no_achievements">Отсутствуют достижения для игры</string>
-    <string name="achievements_failed_load">Не удалось загрузить достижения!</string>
-    <string name="achievements_failed_load_tip">Убедитесь, что вы онлайн</string>
-    <string name="achievement_unlocked">Открыто достижение!</string>
-    <string name="achievement_missable">Безвозвратное</string>
-    <string name="achievement_missable_description">Данное достижение может быть утеряно при прохождении.</string>
-    <string name="achievement_progress">%1$d/%2$d</string> <!-- Eg.: 12/38 -->
-    <string name="challenge_started">Испытание запущено</string>
-    <string name="leaderboard_attempt_started">Попытка войти в таблицу лидеров начата!</string>
-    <string name="leaderboard_submission_info">%1$s • Ранг %2$d из %3$d</string> <!-- Eg.: 01:42.95 • Rank 73 of 145 -->
-    <string name="game_completed">%1$s пройдена</string>
-    <string name="game_mastered">Выполнен сет %1$s</string>
-    <string name="retroachievements_unsynchronized_data">Несинхронизированные данные RetroAchievements</string>
-    <string name="retroachievements_unsynchronized_data_info">Обнаружены несинхронизированные данные RetroAchievements. Операции в ожидании:</string>
-    <plurals name="retroachievements_pending_achievement_unlocks">
-        <item quantity="one">%d открытое достижение</item>
-        <item quantity="other">открытые достижения: %d</item>
-    </plurals>
-    <plurals name="retroachievements_pending_leaderboard_entries">
-        <item quantity="one">%d занесение в таблицу лидеров</item>
-        <item quantity="other">занесения в таблицы лидеров: %d</item>
-    </plurals>
-    <string name="retroachievements_unsynchronized_data_connect_internet">Подключитесь к Интернет, чтобы синхронизировать данные.</string>
-    <string name="retroachievements_unsynchronized_data_loss_info">Выход приведёт к потере данных!</string>
-    <string name="retroachievements_unsynchronized_data_synchronized">Все данные синхронизированы!</string>
-    <string name="retroachievements_unsynchronized_data_exiting">Эмулятор будет закрыт.</string>
 
     <string-array name="fast_forward_speed_multiplier_options">
         <item>Без ограничения</item>
@@ -482,7 +376,6 @@
     <string-array name="game_runtime_console_type_options">
         <item>По умолчанию</item>
         <item>@string/console_ds</item>
-        <item>@string/console_dsi</item>
     </string-array>
 
     <string-array name="firmware_settings_language_options">
@@ -510,10 +403,6 @@
         <item>Motion Pak (Retail)</item>
     </string-array>
     
-    <string-array name="console_type_options">
-        <item>@string/console_ds</item>
-        <item>@string/console_dsi</item>
-    </string-array>
 
     <string-array name="fps_counter_position_options">
         <item>Выкл.</item>
@@ -552,11 +441,6 @@
         <item>LCD</item>
     </string-array>
 
-    <string-array name="dsi_camera_source_options">
-        <item>Чёрный экран</item>
-        <item>Камеры устройства</item>
-        <item>Статичное изображение</item>
-    </string-array>
 
     <string-array name="external_display_screen_options">
         <item>@string/top_screen</item>

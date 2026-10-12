@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">melonDS</string>
+    <string name="app_name">LemonDS</string>
 
     <string name="ok">OK</string>
     <string name="yes">Oui</string>
@@ -56,26 +56,7 @@
     <string name="download_progress_sizes">%1$.1f Mo/%2$.1f Mo</string>
     <string name="update_download_failed">Échec du téléchargement de la mise à jour</string>
 
-    <string name="dsiware_manager">Gestionnaire des DSiWare</string>
-    <string name="no_dsiware_titles_installed">Vous n\'avez aucun titre DSiWare installé</string>
-    <string name="dsiware_manager_no_dsi_setup">Vous n\'avez pas configuré le système DSi</string>
-    <string name="dsiware_manager_invalid_dsi_setup">La configuration de votre système DSi n\'est pas valide</string>
-    <string name="import_dsiware_title">Importer le titre DSiWare</string>
-    <string name="dsiware_manager_setup">Configuration</string>
-    <string name="dsiware_manager_fix_setup">Réparer la configuration</string>
-    <string name="dsiware_manager_load_error">Un problème est survenu lors du listage de vos titres DSiWare. Veuillez vérifier votre configuration DSi</string>
-    <string name="dsiware_manager_import_title_error_open_nand_failed">La NAND n\'a pas pu être ouverte</string>
-    <string name="dsiware_manager_import_title_error_open_file_failed">Erreur lors de l\'ouverture du fichier sélectionné</string>
-    <string name="dsiware_manager_import_title_error_not_dsiware_title">Il ne s\'agit pas d\'un titre DSiWare</string>
-    <string name="dsiware_manager_import_title_error_title_already_imported">Ce titre DSiWare a déjà été importé</string>
-    <string name="dsiware_manager_import_title_error_insatll_failed">Impossible d\'installer le titre</string>
-    <string name="dsiware_manager_import_title_error_metadat_fetch_failed">Impossible de télécharger les métadonnées du titre. Veuillez vérifier votre connexion Internet</string>
-    <string name="dsiware_manager_import_title_error_unknown">Une erreur inconnue est survenue</string>
-    <string name="dsiware_import_from_file">Depuis le fichier</string>
-    <string name="dsiware_import_from_rom_list">Depuis la liste des ROMs</string>
 
-    <string name="select_dsiware_title">Sélectionner le titre DSiWare</string>
-    <string name="no_dsiware_roms_found">Aucune ROM DSiWare trouvée</string>
 
     <string name="info_fps">FPS : %1$d</string>
     <string name="info_loading">CHARGEMENT…</string>
@@ -85,11 +66,9 @@
     <string name="cant_load_empty_slot">Impossible de charger un emplacement de sauvegarde d\'état vide</string>
     <string name="failed_reset_emulation">Impossible de réinitialiser l\'émulation</string>
     <string name="save_states_not_supported">Les sauvegardes d\'état ne sont pas prises en charge pendant l\'exécution du firmware</string>
-    <string name="save_states_unavailable_ra_hardcore_enabled">Les sauvegardes d\'état sont indisponibles lorsque le mode Hardcore est activé</string>
     <string name="rewind_time_seconds">%1$s s</string>
     <string name="rewind_time_minutes_seconds">%1$d min%2$s s</string>
     <string name="rewind_not_enabled">Le rembobinage n\'est pas activé</string>
-    <string name="rewind_unavailable_ra_hardcore_enabled">Le rembobinage n\'est pas disponible lorsque le mode Hardcore est activé</string>
     <string name="no_image_selected">Aucune image sélectionnée</string>
     <string name="failed_to_load_image">Impossible de charger l\'image</string>
 
@@ -98,8 +77,6 @@
 
     <string name="ds_bios_dir_not_set">Répertoire du BIOS DS non défini</string>
     <string name="ds_bios_dir_not_set_info">Le répertoire du BIOS DS n\'est pas défini. Sélectionnez le répertoire qui contient les fichiers suivants :\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
-    <string name="dsi_bios_dir_not_set">Répertoire du BIOS DSi non défini</string>
-    <string name="dsi_bios_dir_not_set_info">Le répertoire du BIOS DSi n\'est pas défini. Sélectionnez le répertoire qui contient les fichiers suivants :\n&#8226; bios7. dans\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
     <string name="incorrect_bios_dir">Répertoire du BIOS incorrect</string>
     <string name="ds_incorrect_bios_dir_info">Le répertoire du BIOS du système DS n\'est pas correct. Assurez-vous que le répertoire sélectionné contient les fichiers suivants :\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
     <string name="dsi_incorrect_bios_dir_info">Le répertoire du BIOS du système DSi n\'est pas correct. Assurez-vous que le répertoire sélectionné contient les fichiers suivants :\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
@@ -118,7 +95,6 @@
     <string name="choose_component">Choisissez le composant</string>
 
     <string name="pause">Pause</string>
-    <string name="achievements">Succès</string>
     <string name="reset">Redémarrer</string>
     <string name="exit">Quitter</string>
 
@@ -160,7 +136,6 @@
     <string name="custom_bios_firmware">BIOS et firmware personnalisés</string>
     <string name="custom_bios_firmware_description">L\'utilisation d\'un BIOS et d\'un firmware personnalisés vous permet de lancer et de naviguer dans le firmware de la DS sans charger de ROM, comme dans un système réel</string>
     <string name="bios_directory">Répertoire du BIOS DS</string>
-    <string name="dsi_bios_directory">Répertoire du BIOS DSi</string>
     <string name="show_boot_screen">Afficher l\'écran de démarrage</string>
     <string name="mac_address">Adresse MAC</string>
     <string name="randomize_mac_address">Adresse MAC aléatoire</string>
@@ -176,8 +151,6 @@
     <string name="category_video">Vidéo</string>
     <string name="category_video_summary">Filtre, rendu fileté, compteur FPS</string>
     <string name="filter">Filtre</string>
-    <string name="dsi_camera_source">Source appareil photo DSi</string>
-    <string name="dsi_camera_image">Image appareil photo DSi</string>
     <string name="category_audio">Audio</string>
     <string name="category_audio_summary">Volume, latence, source du microphone</string>
     <string name="enable_sound">Activer le son</string>
@@ -201,12 +174,6 @@
     <string name="vibrate_on_touch">Vibrer au toucher</string>
     <string name="vibration_strength">Force de vibration</string>
     <string name="soft_input_opacity">Opacité des entrées logicielles</string>
-    <string name="retroachievements">RetroAchievements</string> <!-- Garder les deux mots collés car il s\'agit du nom officiel -->
-    <string name="retroachievements_summary">Se connecter et gérer l\'intégration de RetroAchievements</string> <!-- Garder les deux mots collés car il s\'agit du nom officiel -->
-    <string name="enable_rich_presence">Activer Rich Presence</string>
-    <string name="rich_presence_summary">Permet aux autres utilisateurs de RetroAchievement de voir ce à quoi vous jouez</string>
-    <string name="hardcore_mode">Mode Hardcore</string>
-    <string name="hardcore_mode_summary">Gagnez le double de points, mais vous ne pouvez pas utiliser les sauvegardes d\'état, ni les triches, ni le ralenti en jeu</string>
     
     <string name="cheats">Triches</string>
     <string name="cheats_summary">Activer et importer des codes de triche</string>
@@ -240,7 +207,6 @@
     <string name="label_rom_config_gba_rom_path">Chemin de la ROM GBA</string>
     <string name="label_rom_config_gba_save_path">Chemin de la sauvegarde GBA</string>
     <string name="rom_details_configuration_tab">Configuration</string>
-    <string name="retro_achievements_tab">Retro&#8203;Achievements</string>
 
     <string name="theme_option_light">Clair</string>
     <string name="theme_option_dark">Sombre</string>
@@ -302,36 +268,8 @@
     <string name="background_deleted">Arrière-plan supprimé</string>
     <string name="background_add_processing_failed">Le traitement de l\'image d\'arrière-plan sélectionnée a échoué. Veuillez vérifier qu\'elle n\'est pas corrompue.</string>
 
-    <string name="retro_achievements_login_description">Connectez-vous à RetroAchievements pour consulter les succès que vous pouvez déverouiller en jouant à ce jeu !</string>
-    <string name="login_with_retro_achievements">Connexion à RetroAchievements</string>
-    <string name="login">Connexion</string>
-    <string name="retroachievements_login_summary">Connectez-vous avec RetroAchievements pour débloquer des succès tout en jouant !</string>
-    <string name="retroachievements_login_status">Connecté en tant que %1$s</string>
-    <string name="retroachievements_logout">Déconnexion</string>
-    <string name="retroachievements_logout_confirmation">Are you sure you want to logout from RetroAchievements? You won\'t be able to unlock achievements while playing.</string>
-    <string name="retro_achievements_login_error">Un problème est survenu lors de la tentative de connexion. Assurez-vous que votre nom d\'utilisateur et votre mot de passe sont corrects et que vous êtes connecté à Internet</string>
-    <string name="retro_achievements_login_error_short">Un problème est survenu lors de la connexion</string>
-    <string name="retro_achievements_load_error">Un problème est survenu lors du chargement des succès de ce jeu. Assurez-vous que vous êtes connecté à Internet et réessayez plus tard</string>
-    <string name="retro_achievements_no_achievements">Aucun RetroAchievements n\'a été trouvé pour ce jeu</string>
-    <string name="retro_achievements_relaunch_to_apply_settings">Redémarrez la ROM pour appliquer les nouveaux paramètres de RetroAchievements</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="password">Mot de passe</string>
-    <string name="retry">Réessayer</string>
-    <string name="points_abbreviated">PTS</string>
-    <string name="points">Points</string>
-    <string name="completed">Terminé</string>
-    <string name="ra_mode_hardcore">Hardcore</string>
-    <string name="ra_mode_softcore">Softcore</string>
-    <string name="view_achievement">Consulter le succès</string>
-    <string name="completed_achievements"><b>%1$d</b> sur <b>%2$d</b> (%3$d %%)</string>
-    <string name="submitting_achievements">Envoi des RetroAchievements…</string>
-    <string name="achievements_loaded">Succès chargés</string>
-    <string name="achievements_unlocked_compact">Déverouillé : %1$d/%2$d</string>
-    <string name="achievements_failed_load">Impossible de charger les succès !</string>
-    <string name="achievements_failed_load_tip">Veuillez vérifier que vous êtes en ligne</string>
-    <string name="achievement_unlocked">Succès déverouillé !</string>
-    <string name="achievement_missable">Manquable</string>
-    <string name="achievement_missable_description">Ce succès peut être manqué pendant une session de jeu.</string>
 
     <string-array name="fast_forward_speed_multiplier_options">
         <item>Illimitée</item>
@@ -350,7 +288,6 @@
     <string-array name="game_runtime_console_type_options">
         <item>Par défaut</item>
         <item>@string/console_ds</item>
-        <item>@string/console_dsi</item>
     </string-array>
 
     <string-array name="firmware_settings_language_options">
@@ -369,10 +306,6 @@
         <item>Microphone de l\'appareil</item>
     </string-array>
 
-    <string-array name="console_type_options">
-        <item>@string/console_ds</item>
-        <item>@string/console_dsi</item>
-    </string-array>
 
     <string-array name="fps_counter_position_options">
         <item>Caché</item>
@@ -394,11 +327,6 @@
         <item>LCD</item>
     </string-array>
 
-    <string-array name="dsi_camera_source_options">
-        <item>Écran noir</item>
-        <item>Caméras physiques</item>
-        <item>Image statique</item>
-    </string-array>
     
     <string-array name="audio_interpolation_options">
         <item>Aucune</item>

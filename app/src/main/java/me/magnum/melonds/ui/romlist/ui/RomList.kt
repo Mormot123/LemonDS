@@ -122,9 +122,9 @@ private fun PreviewRomListWithRoms() {
         RomList(
             modifier = Modifier.fillMaxSize(),
             roms = listOf(
-                Rom("Highway 4: Mediocre Racing", "Nontendo", "Highway_4.nds", "content://1".toUri(), Uri.EMPTY, RomConfig(), null, false, ""),
-                Rom("Super Plumber Bros", "Nontendo", "plumber_bros.nds", "content://2".toUri(), Uri.EMPTY, RomConfig(), null, false, ""),
-                Rom("DSiWare Title", "Someware", "dsiware.nds", "content://3".toUri(), Uri.EMPTY, RomConfig(), null, true, ""),
+                Rom("Highway 4: Mediocre Racing", "Nontendo", "Highway_4.nds", "content://1".toUri(), Uri.EMPTY, RomConfig(), null, false),
+                Rom("Super Plumber Bros", "Nontendo", "plumber_bros.nds", "content://2".toUri(), Uri.EMPTY, RomConfig(), null, false),
+                Rom("DSiWare Title", "Someware", "dsiware.nds", "content://3".toUri(), Uri.EMPTY, RomConfig(), null, true),
             ),
             isRefreshing = false,
             onRefresh = {},

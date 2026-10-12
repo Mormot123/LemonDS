@@ -37,6 +37,13 @@
             app:ms_includedPrefScreen="xml/pref_rewind" />
 
     <SwitchPreference
+            android:key="ui_on_secondary_display"
+            android:title="@string/ui_on_secondary_display"
+            android:summary="@string/ui_on_secondary_display_summary"
+            app:iconSpaceReserved="false"
+            android:defaultValue="true" />
+
+    <SwitchPreference
             android:key="enable_sustained_performance"
             android:title="@string/sustained_performance_mode"
             android:summary="@string/sustained_performance_mode_summary"

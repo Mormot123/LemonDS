@@ -49,13 +49,4 @@
             android:entries="@array/audio_latency_options"
             android:entryValues="@array/audio_latency_values"
             android:defaultValue="medium" />
-
-    <ListPreference
-            android:key="mic_source"
-            android:title="@string/microphone_source"
-            android:summary="%s"
-            app:iconSpaceReserved="false"
-            android:entries="@array/mic_source_options"
-            android:entryValues="@array/mic_source_values"
-            android:defaultValue="blow" />
 </PreferenceScreen>

@@ -210,7 +210,6 @@ class FileSystemRomsRepository(
                 name = rom.name,
                 developerName = rom.developerName,
                 isDsiWareTitle = rom.isDsiWareTitle,
-                retroAchievementsHash = rom.retroAchievementsHash,
             )
             roms.remove(existingRom)
             roms.add(updatedRom)

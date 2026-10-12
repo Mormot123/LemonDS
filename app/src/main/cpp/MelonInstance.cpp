@@ -72,9 +72,6 @@ MelonInstance::MelonInstance(int instanceId, std::shared_ptr<EmulatorConfigurati
         firmwareSave = std::make_unique<SaveManager>(firmwarePathString);
     }
 
-    // All instances have a RetroAchievements manager, but only the first instance will actually load achievements
-    retroAchievementsManager = std::make_unique<RetroAchievements::RetroAchievementsManager>(nds);
-
     nds->Reset();
     setBatteryLevels();
     setDateTime();
@@ -285,7 +282,6 @@ void MelonInstance::reset()
     }
 
     rewindManager.Reset();
-    retroAchievementsManager->Reset();
     nds->Start();
 }
 
@@ -357,7 +353,6 @@ u32 MelonInstance::runFrame()
     }
 
     u32 nLines = nds->RunFrame();
-    retroAchievementsManager->FrameUpdate();
 
     if (!isRendererAccelerated)
     {
@@ -414,7 +409,6 @@ u32 MelonInstance::runFrame()
 
 void MelonInstance::stop()
 {
-    retroAchievementsManager = nullptr;
     screenshotRenderer->cleanup();
 }
 
@@ -554,17 +548,11 @@ void MelonInstance::requestFirmwareSaveWrite(const u8* saveData, u32 saveLength,
 
 bool MelonInstance::saveState(Savestate* state)
 {
-    if (!retroAchievementsManager->DoSavestate(state))
-        return false;
-
     return nds->DoSavestate(state);
 }
 
 bool MelonInstance::loadState(Savestate* state)
 {
-    if (!retroAchievementsManager->DoSavestate(state))
-        return false;
-
     if (nds->DoSavestate(state))
     {
         setBatteryLevels();
@@ -604,42 +592,6 @@ bool MelonInstance::loadRewindState(RewindSaveState rewindSaveState)
     delete savestate;
 
     return result;
-}
-
-void MelonInstance::setupAchievements(
-    std::list<RetroAchievements::RAAchievement> achievements,
-    std::list<RetroAchievements::RALeaderboard> leaderboards,
-    std::optional<std::string> richPresenceScript
-)
-{
-    if (instanceId == 0)
-    {
-        retroAchievementsManager->LoadAchievements(achievements);
-        retroAchievementsManager->LoadLeaderboards(leaderboards);
-        if (richPresenceScript)
-            retroAchievementsManager->SetupRichPresence(*richPresenceScript);
-    }
-}
-
-void MelonInstance::unloadRetroAchievementsData()
-{
-    retroAchievementsManager->UnloadEverything();
-}
-
-std::string MelonInstance::getRichPresenceStatus()
-{
-    if (instanceId == 0 && retroAchievementsManager)
-        return retroAchievementsManager->GetRichPresenceStatus();
-    else
-        return "";
-}
-
-std::vector<RetroAchievements::RARuntimeAchievement> MelonInstance::getRuntimeAchievements()
-{
-    if (instanceId == 0 && retroAchievementsManager)
-        return retroAchievementsManager->GetRuntimeAchievements();
-    else
-        return { };
 }
 
 void MelonInstance::updateRenderer()

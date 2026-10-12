@@ -11,12 +11,10 @@ import me.magnum.melonds.R
 import me.magnum.melonds.common.DirectoryAccessValidator
 import me.magnum.melonds.common.UriPermissionManager
 import me.magnum.melonds.domain.model.VideoRenderer
-import me.magnum.melonds.domain.model.camera.DSiCameraSourceType
 import me.magnum.melonds.domain.repositories.LayoutsRepository
 import me.magnum.melonds.domain.repositories.SettingsRepository
 import me.magnum.melonds.ui.settings.PreferenceFragmentHelper
 import me.magnum.melonds.ui.settings.PreferenceFragmentTitleProvider
-import me.magnum.melonds.ui.settings.preferences.StoragePickerPreference
 import me.magnum.melonds.utils.enumValueOfIgnoreCase
 import javax.inject.Inject
 
@@ -53,8 +51,6 @@ class VideoPreferencesFragment : BasePreferenceFragment(), PreferenceFragmentTit
         }
 
         val rendererPreference = findPreference<ListPreference>("video_renderer")!!
-        val dsiCameraSourcePreference = findPreference<ListPreference>("dsi_camera_source")!!
-        val dsiCameraImagePreference = findPreference<StoragePickerPreference>("dsi_camera_static_image")!!
 
         val activityManager = requireContext().getSystemService<ActivityManager>()
 
@@ -83,15 +79,7 @@ class VideoPreferencesFragment : BasePreferenceFragment(), PreferenceFragmentTit
             }
         }
 
-        dsiCameraSourcePreference.setOnPreferenceChangeListener { _, newValue ->
-            updateDsiCameraImagePreference(dsiCameraImagePreference, newValue as String)
-            true
-        }
-
-        helper.setupStoragePickerPreference(dsiCameraImagePreference)
-
         onRendererPreferenceChanged(rendererPreference.value)
-        updateDsiCameraImagePreference(dsiCameraImagePreference, dsiCameraSourcePreference.value)
     }
 
     private fun onRendererPreferenceChanged(rendererValue: String) {
@@ -113,11 +101,6 @@ class VideoPreferencesFragment : BasePreferenceFragment(), PreferenceFragmentTit
                 computeRendererPreferences.forEach { it.isVisible = true }
             }
         }
-    }
-
-    private fun updateDsiCameraImagePreference(preference: StoragePickerPreference, dsiCameraSourceValue: String) {
-        val newSource = enumValueOfIgnoreCase<DSiCameraSourceType>(dsiCameraSourceValue)
-        preference.isEnabled = newSource == DSiCameraSourceType.STATIC_IMAGE
     }
 
     override fun getTitle(): String {

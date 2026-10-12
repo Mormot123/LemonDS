@@ -5,9 +5,6 @@ import me.magnum.melonds.common.camera.DSiCameraSource
 import me.magnum.melonds.domain.model.Cheat
 import me.magnum.melonds.domain.model.EmulatorConfiguration
 import me.magnum.melonds.domain.model.Input
-import me.magnum.melonds.domain.model.retroachievements.RASimpleAchievement
-import me.magnum.melonds.domain.model.retroachievements.RASimpleLeaderboard
-import me.magnum.melonds.domain.model.retroachievements.RASimpleRuntimeAchievement
 import me.magnum.melonds.ui.emulator.render.FrameRenderCallback
 import me.magnum.melonds.ui.emulator.rewind.model.RewindSaveState
 import me.magnum.melonds.ui.emulator.rewind.model.RewindWindow
@@ -54,14 +51,6 @@ object MelonEmulator {
     )
 
     external fun setupCheats(cheats: Array<Cheat>)
-
-    external fun setupAchievements(achievements: Array<RASimpleAchievement>, leaderboards: Array<RASimpleLeaderboard>, richPresenceScript: String?)
-
-    external fun unloadRetroAchievementsData()
-
-    external fun getRichPresenceStatus(): String?
-
-    external fun getRuntimeAchievements(): Array<RASimpleRuntimeAchievement>
 
 	fun loadRom(romUri: Uri, sramUri: Uri, gbaSlotType: GbaSlotType, gbaRomUri: Uri?, gbaSramUri: Uri?): LoadResult {
         val loadResult = loadRomInternal(romUri.toString(), sramUri.toString(), gbaSlotType.ordinal, gbaRomUri?.toString(), gbaSramUri?.toString())
@@ -132,6 +121,8 @@ object MelonEmulator {
     external fun takeScreenshot(): Boolean
 
     external fun setFastForwardEnabled(enabled: Boolean)
+
+    external fun setFrameSkip(mode: Int)
 
     external fun setMicrophoneEnabled(enabled: Boolean)
 

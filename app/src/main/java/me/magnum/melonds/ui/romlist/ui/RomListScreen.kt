@@ -78,7 +78,7 @@ fun RomListScreen(
     onRefresh: () -> Unit,
     onDirectorySelected: (Uri) -> Unit,
     onNavigateToSettings: () -> Unit,
-    onNavigateToDsiWareManager: () -> Unit,
+    onNavigateToLan: () -> Unit,
     retrieveRomIcon: suspend (Rom) -> RomIcon,
 ) {
     var isSearchActive by rememberSaveable { mutableStateOf(false) }
@@ -125,7 +125,7 @@ fun RomListScreen(
                         onSearchClick = { isSearchActive = true },
                         onSortChange = onSortChange,
                         onFirmwareBoot = onFirmwareBoot,
-                        onNavigateToDsiWareManager = onNavigateToDsiWareManager,
+                        onNavigateToLan = onNavigateToLan,
                         onRefresh = onRefresh,
                         onNavigateToSettings = onNavigateToSettings,
                     )
@@ -167,7 +167,7 @@ private fun RomListTopBar(
     onSearchClick: () -> Unit,
     onSortChange: (SortingMode) -> Unit,
     onFirmwareBoot: (ConsoleType) -> Unit,
-    onNavigateToDsiWareManager: () -> Unit,
+    onNavigateToLan: () -> Unit,
     onRefresh: () -> Unit,
     onNavigateToSettings: () -> Unit,
 ) {
@@ -280,14 +280,6 @@ private fun RomListTopBar(
                             ) {
                                 Text(stringResource(R.string.console_ds))
                             }
-                            DropdownMenuItem(
-                                onClick = {
-                                    showFirmwareMenu = false
-                                    onFirmwareBoot(ConsoleType.DSi)
-                                },
-                            ) {
-                                Text(stringResource(R.string.console_dsi))
-                            }
                         }
                     }
 
@@ -310,9 +302,9 @@ private fun RomListTopBar(
                         ) {
                             DropdownMenuItem(onClick = {
                                 onOverflowMenuChange(false)
-                                onNavigateToDsiWareManager()
+                                onNavigateToLan()
                             }) {
-                                Text(stringResource(R.string.dsiware_manager))
+                                Text(stringResource(R.string.lan_multiplayer))
                             }
                             DropdownMenuItem(onClick = {
                                 onOverflowMenuChange(false)

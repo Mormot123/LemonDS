@@ -100,7 +100,7 @@ private fun PreviewConfigurableRomItem() {
     MelonTheme {
         ConfigurableRomItem(
             modifier = Modifier.fillMaxWidth(),
-            rom = Rom("Highway 4: Mediocre Racing", "Nontendo", "Highway_4.nds", Uri.EMPTY, Uri.EMPTY, RomConfig(), null, false, ""),
+            rom = Rom("Highway 4: Mediocre Racing", "Nontendo", "Highway_4.nds", Uri.EMPTY, Uri.EMPTY, RomConfig(), null, false),
             onClick = {},
             onConfigClick = {},
             retrieveTitleIcon = { RomIcon(bitmap, RomIconFiltering.NONE) }
@@ -116,7 +116,7 @@ private fun PreviewConfigurableRomItemDisabled() {
     MelonTheme {
         ConfigurableRomItem(
             modifier = Modifier.fillMaxWidth(),
-            rom = Rom("DSiWare Title", "Nontendo", "dsiware_title.nds", Uri.EMPTY, Uri.EMPTY, RomConfig(), null, true, ""),
+            rom = Rom("DSiWare Title", "Nontendo", "dsiware_title.nds", Uri.EMPTY, Uri.EMPTY, RomConfig(), null, true),
             enabled = false,
             onClick = {},
             onConfigClick = {},

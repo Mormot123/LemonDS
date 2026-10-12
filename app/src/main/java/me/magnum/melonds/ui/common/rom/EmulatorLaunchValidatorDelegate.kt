@@ -16,7 +16,6 @@ import me.magnum.melonds.domain.model.emulator.validation.FirmwareLaunchPrecondi
 import me.magnum.melonds.domain.model.emulator.validation.RomLaunchPreconditionCheckResult
 import me.magnum.melonds.domain.model.rom.Rom
 import me.magnum.melonds.ui.common.rom.model.LaunchValidationResult
-import me.magnum.melonds.ui.dsiwaremanager.DSiWareManagerActivity
 import me.magnum.melonds.ui.settings.SettingsActivity
 
 class EmulatorLaunchValidatorDelegate(
@@ -28,9 +27,6 @@ class EmulatorLaunchValidatorDelegate(
 
     private val firmwareSettingsLauncher = context.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         viewModel.onReturnFromFirmwareSettings()
-    }
-    private val dsiWareManagerLauncher = context.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        viewModel.onReturnFromDsiWareManagerSetup()
     }
 
     init {
@@ -49,7 +45,6 @@ class EmulatorLaunchValidatorDelegate(
                         is LaunchValidationResult.Rom -> {
                             when (it.result) {
                                 is RomLaunchPreconditionCheckResult.Success -> callback.onRomValidated(it.result.rom)
-                                is RomLaunchPreconditionCheckResult.DSiWareTitleValidationFailed -> showDsiWareTitleLoadIssueDialog(it.result.reason)
                                 is RomLaunchPreconditionCheckResult.BiosConfigurationIncorrect -> {
                                     showIncorrectConfigurationDirectoryDialogForRom(it.result.configurationDirectoryResult)
                                 }
@@ -96,27 +91,6 @@ class EmulatorLaunchValidatorDelegate(
             }
             .setNegativeButton(R.string.cancel) { _, _ -> callback.onValidationAborted() }
             .setOnCancelListener { callback.onValidationAborted() }
-            .show()
-    }
-
-    private fun showDsiWareTitleLoadIssueDialog(reason: RomLaunchPreconditionCheckResult.DSiWareTitleValidationFailed.Reason) {
-        val message = when (reason) {
-            RomLaunchPreconditionCheckResult.DSiWareTitleValidationFailed.Reason.NandError -> context.getString(R.string.failed_launch_dsiware_title_check_failed)
-            RomLaunchPreconditionCheckResult.DSiWareTitleValidationFailed.Reason.RomParseError -> context.getString(R.string.failed_launch_dsiware_title_rom_failed)
-            RomLaunchPreconditionCheckResult.DSiWareTitleValidationFailed.Reason.TitleNotInstalled -> context.getString(R.string.failed_launch_dsiware_title_not_installed)
-        }
-
-        AlertDialog.Builder(context)
-            .setTitle(R.string.failed_launch_dsiware_title)
-            .setMessage(message)
-            .setPositiveButton(R.string.dsiware_manager) { _, _ ->
-                val intent = Intent(context, DSiWareManagerActivity::class.java)
-                dsiWareManagerLauncher.launch(intent)
-            }
-            .setNegativeButton(R.string.cancel) { _, _ -> callback.onValidationAborted() }
-            .setOnCancelListener {
-                callback.onValidationAborted()
-            }
             .show()
     }
 

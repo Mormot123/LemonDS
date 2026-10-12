@@ -21,12 +21,9 @@ import me.magnum.melonds.common.vibration.Api26VibratorDelegate
 import me.magnum.melonds.common.vibration.OldVibratorDelegate
 import me.magnum.melonds.common.vibration.TouchVibrator
 import me.magnum.melonds.database.MelonDatabase
-import me.magnum.melonds.database.daos.RetroAchievementsDao
 import me.magnum.melonds.domain.repositories.*
 import me.magnum.melonds.domain.services.ConfigurationDirectoryVerifier
-import me.magnum.melonds.domain.services.DSiNandManager
 import me.magnum.melonds.domain.services.EmulatorLaunchPreconditionChecker
-import me.magnum.melonds.impl.AndroidDSiNandManager
 import me.magnum.melonds.impl.*
 import me.magnum.melonds.impl.input.ControllerConfigurationFactory
 import me.magnum.melonds.impl.input.DefaultControllerConfigurationFactory
@@ -37,8 +34,6 @@ import me.magnum.melonds.impl.layout.devicemapper.AynThorLayoutDisplayMapper
 import me.magnum.melonds.impl.layout.devicemapper.DefaultLayoutDisplayMapper
 import me.magnum.melonds.impl.romprocessors.Api24RomFileProcessorFactory
 import me.magnum.melonds.ui.romdetails.RomDetailsUiMapper
-import me.magnum.rcheevosapi.RAApi
-import me.magnum.rcheevosapi.RAUserAuthStore
 import javax.inject.Singleton
 
 @Module
@@ -96,24 +91,6 @@ object MelonModule {
     @Singleton
     fun provideSaveStatesRepository(settingsRepository: SettingsRepository, saveStateScreenshotProvider: SaveStateScreenshotProvider, uriHandler: UriHandler): SaveStatesRepository {
         return FileSystemSaveStatesRepository(settingsRepository, saveStateScreenshotProvider, uriHandler)
-    }
-
-    @Provides
-    @Singleton
-    fun provideDSiWareMetadataRepository(): DSiWareMetadataRepository {
-        return NusDSiWareMetadataRepository()
-    }
-
-    @Provides
-    @Singleton
-    fun provideRetroAchievementsRepository(
-        raApi: RAApi,
-        retroAchievementsDao: RetroAchievementsDao,
-        raUserAuthStore: RAUserAuthStore,
-        sharedPreferences: SharedPreferences,
-        @ApplicationContext context: Context,
-    ): RetroAchievementsRepository {
-        return AndroidRetroAchievementsRepository(raApi, retroAchievementsDao, raUserAuthStore, sharedPreferences, context)
     }
 
     @Provides
@@ -187,17 +164,6 @@ object MelonModule {
 
     @Provides
     @Singleton
-    fun provideDSiNandManager(
-        @ApplicationContext context: Context,
-        settingsRepository: SettingsRepository,
-        dSiWareMetadataRepository: DSiWareMetadataRepository,
-        configurationDirectoryVerifier: ConfigurationDirectoryVerifier
-    ): DSiNandManager {
-        return AndroidDSiNandManager(context, settingsRepository, dSiWareMetadataRepository, configurationDirectoryVerifier)
-    }
-
-    @Provides
-    @Singleton
     fun provideRomDetailsUiMapper(@ApplicationContext context: Context, layoutsRepository: LayoutsRepository): RomDetailsUiMapper {
         return RomDetailsUiMapper(context, layoutsRepository)
     }
@@ -205,14 +171,10 @@ object MelonModule {
     @Provides
     fun provideRomLaunchPreconditionChecker(
         configurationDirectoryVerifier: ConfigurationDirectoryVerifier,
-        romFileProcessorFactory: RomFileProcessorFactory,
-        dsiNandManager: DSiNandManager,
         settingsRepository: SettingsRepository,
     ): EmulatorLaunchPreconditionChecker {
         return EmulatorLaunchPreconditionChecker(
             configurationDirectoryVerifier = configurationDirectoryVerifier,
-            romFileProcessorFactory = romFileProcessorFactory,
-            dsiNandManager = dsiNandManager,
             settingsRepository = settingsRepository,
         )
     }

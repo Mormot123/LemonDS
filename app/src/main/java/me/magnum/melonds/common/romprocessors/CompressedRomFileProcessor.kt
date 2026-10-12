@@ -48,8 +48,7 @@ abstract class CompressedRomFileProcessor(private val context: Context, private 
                             parentTreeUri = parentUri,
                             config = if (romMetadata.isDSiWareTitle) RomConfig.forDsiWareTitle() else RomConfig.default(),
                             lastPlayed = null,
-                            isDsiWareTitle = romMetadata.isDSiWareTitle,
-                            retroAchievementsHash = romMetadata.retroAchievementsHash
+                            isDsiWareTitle = romMetadata.isDSiWareTitle
                         )
                     }
                 }

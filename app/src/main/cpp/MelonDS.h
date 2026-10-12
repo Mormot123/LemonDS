@@ -1,7 +1,11 @@
 #ifndef MELONDS_MELONDS_H
 #define MELONDS_MELONDS_H
 
+#include <chrono>
 #include <list>
+#include <memory>
+#include <optional>
+#include <string>
 #include <vector>
 #include "AndroidFileHandler.h"
 #include "AndroidCameraHandler.h"
@@ -9,8 +13,6 @@
 #include "MelonEventMessenger.h"
 #include "RewindManager.h"
 #include "RomGbaSlotConfig.h"
-#include "retroachievements/RAAchievement.h"
-#include "retroachievements/RALeaderboard.h"
 #include "renderer/FrameQueue.h"
 #include "types.h"
 #include "../GPU.h"
@@ -37,10 +39,6 @@ namespace MelonDSAndroid {
     extern void setConfiguration(EmulatorConfiguration emulatorConfiguration);
     extern void setup(AndroidCameraHandler* androidCameraHandler, std::shared_ptr<MelonEventMessenger> androidEventMessenger, u32* screenshotBufferPointer, int instanceId);
     extern void setCodeList(std::list<Cheat> cheats);
-    extern void setupAchievements(std::list<RetroAchievements::RAAchievement> achievements, std::list<RetroAchievements::RALeaderboard> leaderboards, std::optional<std::string> richPresenceScript);
-    extern void unloadRetroAchievementsData();
-    extern std::string getRichPresenceStatus();
-    extern std::vector<RetroAchievements::RARuntimeAchievement> getRuntimeAchievements();
     extern void updateEmulatorConfiguration(std::unique_ptr<EmulatorConfiguration> emulatorConfiguration);
 
     /**
@@ -72,6 +70,8 @@ namespace MelonDSAndroid {
     extern bool takeScreenshot();
     extern void stop();
     extern void cleanup();
+    // True between setup() and cleanup(), i.e. while the emulator thread may be calling loop()
+    extern bool hasActiveInstance();
 }
 
 #endif //MELONDS_MELONDS_H

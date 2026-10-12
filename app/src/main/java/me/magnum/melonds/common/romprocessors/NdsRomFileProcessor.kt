@@ -27,8 +27,7 @@ class NdsRomFileProcessor(private val context: Context, private val uriHandler: 
                     parentTreeUri = parentUri,
                     config = if (metadata.isDSiWareTitle) RomConfig.forDsiWareTitle() else RomConfig.default(),
                     lastPlayed = null,
-                    isDsiWareTitle = metadata.isDSiWareTitle,
-                    retroAchievementsHash = metadata.retroAchievementsHash
+                    isDsiWareTitle = metadata.isDSiWareTitle
                 )
             }
         } catch (e: Exception) {

@@ -43,7 +43,7 @@ abstract class FirmwareShortcutSetupActivity : AppCompatActivity() {
     private fun getConsoleIcon(consoleType: ConsoleType): IconCompat {
         return when (consoleType) {
             ConsoleType.DS -> IconCompat.createWithResource(this, R.mipmap.ic_platform_ds)
-            ConsoleType.DSi -> IconCompat.createWithResource(this, R.mipmap.ic_platform_dsi)
+            ConsoleType.DSi -> IconCompat.createWithResource(this, R.mipmap.ic_platform_ds)
         }
     }
 

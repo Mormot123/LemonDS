@@ -21,7 +21,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -47,7 +46,6 @@ import androidx.window.layout.WindowInfoTracker
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 import me.magnum.melonds.MelonEmulator
 import me.magnum.melonds.R
@@ -88,7 +86,6 @@ import me.magnum.melonds.ui.emulator.model.EmulatorState
 import me.magnum.melonds.ui.emulator.model.EmulatorUiEvent
 import me.magnum.melonds.ui.emulator.model.LaunchArgs
 import me.magnum.melonds.ui.emulator.model.PauseMenu
-import me.magnum.melonds.ui.emulator.model.RAEventUi
 import me.magnum.melonds.ui.emulator.model.RewindWindowState
 import me.magnum.melonds.ui.emulator.model.RumbleEvent
 import me.magnum.melonds.ui.emulator.model.RuntimeInputLayoutConfiguration
@@ -99,9 +96,6 @@ import me.magnum.melonds.ui.emulator.render.ExternalPresentation
 import me.magnum.melonds.ui.emulator.render.FrameRenderCoordinator
 import me.magnum.melonds.ui.emulator.rewind.model.RewindWindow
 import me.magnum.melonds.ui.emulator.rom.SaveStateAdapter
-import me.magnum.melonds.ui.emulator.ui.AchievementListDialog
-import me.magnum.melonds.ui.emulator.ui.AchievementUpdatesUi
-import me.magnum.melonds.ui.emulator.ui.PendingSubmissionsDialog
 import me.magnum.melonds.ui.emulator.ui.RewindWindowUi
 import me.magnum.melonds.ui.layouteditor.model.LayoutTarget
 import me.magnum.melonds.ui.settings.SettingsActivity
@@ -268,8 +262,6 @@ class EmulatorActivity : AppCompatActivity() {
     }
 
     private val rewindWindowState = mutableStateOf<RewindWindowState>(RewindWindowState.Hidden)
-    private val showAchievementList = mutableStateOf(false)
-    private val showPendingSubmissionsDialog = mutableStateOf(false)
 
     private val activeOverlays = EmulatorOverlayTracker(
         onOverlaysCleared = {
@@ -353,16 +345,6 @@ class EmulatorActivity : AppCompatActivity() {
 
         binding.layoutCompose.setContent {
             MelonTheme {
-                val achievementsViewModel = viewModels<EmulatorRetroAchievementsViewModel>().value
-
-                LaunchedEffect(Unit) {
-                    viewModel.achievementsEvent.filterIsInstance<RAEventUi.Reset>().collect {
-                        achievementsViewModel.onSessionReset()
-                    }
-                }
-
-                AchievementUpdatesUi(viewModel)
-
                 RewindWindowUi(
                     state = rewindWindowState.value,
                     onRewindSaveStateSelected = { state ->
@@ -371,29 +353,6 @@ class EmulatorActivity : AppCompatActivity() {
                     },
                     onDismiss = ::closeRewindWindow,
                 )
-
-                if (showAchievementList.value) {
-                    AchievementListDialog(
-                        viewModel = achievementsViewModel,
-                        onDismiss = {
-                            activeOverlays.removeActiveOverlay(EmulatorOverlay.ACHIEVEMENTS_DIALOG)
-                            viewModel.resumeEmulator()
-                            showAchievementList.value = false
-                        }
-                    )
-                }
-
-                if (showPendingSubmissionsDialog.value) {
-                    PendingSubmissionsDialog(
-                        pendingSubmissionsSummaryFlow = viewModel.pendingSubmissionsSummary,
-                        onExit = { viewModel.exitEmulator(force = true) },
-                        onCancel = {
-                            activeOverlays.removeActiveOverlay(EmulatorOverlay.PENDING_SUBMISSION_CONFIRM_EXIT)
-                            viewModel.resumeEmulator()
-                            showPendingSubmissionsDialog.value = false
-                        }
-                    )
-                }
             }
         }
 
@@ -472,14 +431,11 @@ class EmulatorActivity : AppCompatActivity() {
                         ToastEvent.QuickSaveSuccessful -> R.string.saved to Toast.LENGTH_SHORT
                         ToastEvent.QuickLoadSuccessful -> R.string.loaded to Toast.LENGTH_SHORT
                         ToastEvent.RewindNotEnabled -> R.string.rewind_not_enabled to Toast.LENGTH_SHORT
-                        ToastEvent.RewindNotAvailableWhileRAHardcoreModeEnabled -> R.string.rewind_unavailable_ra_hardcore_enabled to Toast.LENGTH_LONG
                         ToastEvent.StateLoadFailed -> R.string.failed_load_state to Toast.LENGTH_SHORT
                         ToastEvent.StateSaveFailed -> R.string.failed_save_state to Toast.LENGTH_SHORT
                         ToastEvent.StateStateDoesNotExist -> R.string.cant_load_empty_slot to Toast.LENGTH_SHORT
-                        ToastEvent.CannotUseSaveStatesWhenRAHardcoreIsEnabled -> R.string.save_states_unavailable_ra_hardcore_enabled to Toast.LENGTH_LONG
                         ToastEvent.CannotLoadStateWhenRunningFirmware,
                         ToastEvent.CannotSaveStateWhenRunningFirmware -> R.string.save_states_not_supported to Toast.LENGTH_LONG
-                        ToastEvent.CannotSwitchRetroAchievementsMode -> R.string.retro_achievements_relaunch_to_apply_settings to Toast.LENGTH_LONG
                         ToastEvent.GbaModeNotSupported -> R.string.emulator_stop_gba_mode_unsupported to Toast.LENGTH_SHORT
                         ToastEvent.InternalError -> R.string.emulator_stop_internal_error to Toast.LENGTH_LONG
                     }
@@ -516,14 +472,6 @@ class EmulatorActivity : AppCompatActivity() {
                                     viewModel.loadStateFromSlot(slot)
                                 }
                             }
-                        }
-                        EmulatorUiEvent.ShowAchievementList -> {
-                            activeOverlays.addActiveOverlay(EmulatorOverlay.ACHIEVEMENTS_DIALOG)
-                            showAchievementList.value = true
-                        }
-                        EmulatorUiEvent.ShowPendingSubmissionsDialog -> {
-                            activeOverlays.addActiveOverlay(EmulatorOverlay.PENDING_SUBMISSION_CONFIRM_EXIT)
-                            showPendingSubmissionsDialog.value = true
                         }
                     }
                 }

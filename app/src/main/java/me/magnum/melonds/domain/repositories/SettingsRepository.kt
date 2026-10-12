@@ -46,6 +46,7 @@ interface SettingsRepository {
     fun isSoundEnabled(): Boolean
     fun getAudioLatency(): AudioLatency
     fun getMicSource(): MicSource
+    fun getFrameSkip(): Int
 
     fun getRomSortingMode(): SortingMode
     fun getRomSortingOrder(): SortingOrder
@@ -62,12 +63,6 @@ interface SettingsRepository {
     fun isTouchHapticFeedbackEnabled(): Flow<Boolean>
     fun getTouchHapticFeedbackStrength(): Int
     fun getSoftInputOpacity(): Flow<Int>
-
-    fun isRetroAchievementsRichPresenceEnabled(): Boolean
-    fun isRetroAchievementsHardcoreEnabled(): Boolean
-    fun areRetroAchievementsActiveChallengeIndicatorsEnabled(): Boolean
-    fun areRetroAchievementsProgressIndicatorsEnabled(): Boolean
-    fun areRetroAchievementsLeaderboardIndicatorsEnabled(): Boolean
 
     fun areCheatsEnabled(): Boolean
 

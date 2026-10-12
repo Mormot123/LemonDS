@@ -52,10 +52,6 @@ class EmulatorLaunchValidationViewModel @Inject constructor(
         retryLaunchValidation()
     }
 
-    fun onReturnFromDsiWareManagerSetup() {
-        retryLaunchValidation()
-    }
-
     private fun retryLaunchValidation() {
         currentLaunchValidationState?.let {
             when (it) {

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">melonDS</string>
+    <string name="app_name">LemonDS</string>
 
     <string name="ok">OK</string>
     <string name="yes">Sim</string>
@@ -50,25 +50,7 @@
     <string name="download_progress_sizes">%1$.1fMB/%2$.1fMB</string>
     <string name="update_download_failed">Falha em baixar a atualização</string>
 
-    <string name="dsiware_manager">Gerenciador do DSiWare</string>
-    <string name="no_dsiware_titles_installed">Você não tem nenhum título DSiWare instalado</string>
-    <string name="dsiware_manager_no_dsi_setup">Você não configurou o sistema DSi</string>
-    <string name="dsiware_manager_invalid_dsi_setup">A configuração do seu sistema DSi é inválida</string>
-    <string name="import_dsiware_title">Importar título do DSiWare</string>
-    <string name="dsiware_manager_setup">Configurar</string>
-    <string name="dsiware_manager_fix_setup">Corrigir configuração</string>
-    <string name="dsiware_manager_load_error">Ocorreu um problema ao listar seus títulos DSiWare. Verifique a configuração do seu DSi</string>
-    <string name="dsiware_manager_import_title_error_open_nand_failed">Não foi possível abrir a NAND</string>
-    <string name="dsiware_manager_import_title_error_open_file_failed">Erro ao abrir o arquivo selecionado</string>
-    <string name="dsiware_manager_import_title_error_not_dsiware_title">Não é um título DSiWare</string>
-    <string name="dsiware_manager_import_title_error_title_already_imported">Título DSiWare já importado</string>
-    <string name="dsiware_manager_import_title_error_insatll_failed">Falha em instalar o título</string>
-    <string name="dsiware_manager_import_title_error_unknown">Ocorreu um erro desconhecido</string>
-    <string name="dsiware_import_from_file">A partir do arquivo</string>
-    <string name="dsiware_import_from_rom_list">A partir da lista de ROMs</string>
 
-    <string name="select_dsiware_title">Selecionar título DSiWare</string>
-    <string name="no_dsiware_roms_found">Nenhuma ROM DSiWare encontrada</string>
 
     <string name="info_fps">FPS: %1$d</string>
     <string name="info_loading">CARREGANDO…</string>
@@ -87,8 +69,6 @@
 
     <string name="ds_bios_dir_not_set">Diretório BIOS DS não definido</string>
     <string name="ds_bios_dir_not_set_info">O diretório BIOS DS não está definido. Selecione o diretório que contém os seguintes arquivos:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
-    <string name="dsi_bios_dir_not_set">Diretório BIOS DSi não definido</string>
-    <string name="dsi_bios_dir_not_set_info">O diretório BIOS DSi não está definido. Selecione o diretório que contém os seguintes arquivos:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
     <string name="incorrect_bios_dir">Diretório BIOS incorreto</string>
     <string name="ds_incorrect_bios_dir_info">O diretório BIOS para o sistema DS não está correto. Certifique-se de que o diretório selecionado contém os seguintes arquivos:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
     <string name="dsi_incorrect_bios_dir_info">O diretório BIOS para o sistema DSi não está correto. Certifique-se de que o diretório selecionado contém os seguintes arquivos:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
@@ -148,7 +128,6 @@
     <string name="custom_bios_firmware">BIOS e firmware personalizado</string>
     <string name="custom_bios_firmware_description">O uso de BIOS e firmware personalizados permite que você inicie e navegue no firmware do DS sem carregar uma ROM, assim como em um sistema real</string>
     <string name="bios_directory">Diretório BIOS DS</string>
-    <string name="dsi_bios_directory">Diretório BIOS DSi</string>
     <string name="show_boot_screen">Mostrar tela de inicialização</string>
     <string name="mac_address">Endereço MAC</string>
     <string name="randomize_mac_address">Randomizar endereço MAC</string>
@@ -298,7 +277,6 @@
     <string-array name="game_runtime_console_type_options">
         <item>Padrão</item>
         <item>@string/console_ds</item>
-        <item>@string/console_dsi</item>
     </string-array>
 
     <string-array name="firmware_settings_language_options">
@@ -317,10 +295,6 @@
         <item>Microfone do dispositivo</item>
     </string-array>
 
-    <string-array name="console_type_options">
-        <item>@string/console_ds</item>
-        <item>@string/console_dsi</item>
-    </string-array>
 
     <string-array name="fps_counter_position_options">
         <item>Oculto</item>

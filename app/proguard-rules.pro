@@ -33,9 +33,6 @@
 -keep class me.magnum.melonds.domain.model.Cheat { *; }
 -keep class me.magnum.melonds.domain.model.DSiWareTitle { *; }
 -keep class me.magnum.melonds.domain.model.VideoRenderer { *; }
--keep class me.magnum.melonds.domain.model.retroachievements.RASimpleAchievement { *; }
--keep class me.magnum.melonds.domain.model.retroachievements.RASimpleLeaderboard { *; }
--keep class me.magnum.melonds.domain.model.retroachievements.RASimpleRuntimeAchievement { *; }
 -keep class me.magnum.melonds.ui.emulator.render.FrameRenderCallback { *; }
 -keep class me.magnum.melonds.ui.emulator.rewind.model.RewindSaveState { *; }
 -keep class me.magnum.melonds.ui.emulator.rewind.model.RewindWindow { *; }
@@ -50,7 +47,6 @@
 
 # Prevent DTOs from being removed
 -keep,allowobfuscation class me.magnum.melonds.impl.dtos.**
--keep,allowobfuscation class me.magnum.rcheevosapi.dto.**
 
 # Prevent Gson's TypeToken from being removed
 -keepattributes Signature

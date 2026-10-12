@@ -219,8 +219,8 @@ class SharedPreferencesSettingsRepository(
         return SizeUnit.MB(128) * 2.toDouble().pow(cacheSizeStepPreference).toLong()
     }
     override fun getDefaultConsoleType(): ConsoleType {
-        val consoleTypePreference = preferences.getString("console_type", "ds")!!
-        return enumValueOfIgnoreCase(consoleTypePreference)
+        // DSi mode has been removed. The emulator always runs in DS mode
+        return ConsoleType.DS
     }
 
     override fun getFirmwareConfiguration(): FirmwareConfiguration {
@@ -329,7 +329,7 @@ class SharedPreferencesSettingsRepository(
     }
 
     override fun getDSiCameraSource(): DSiCameraSourceType {
-        val dsiCameraSource = preferences.getString("dsi_camera_source", "physical_cameras")!!
+        val dsiCameraSource = preferences.getString("dsi_camera_source", "black_screen")!!
         return DSiCameraSourceType.valueOf(dsiCameraSource.uppercase())
     }
 
@@ -369,9 +369,13 @@ class SharedPreferencesSettingsRepository(
         return enumValueOfIgnoreCase(audioLatencyPreference)
     }
 
+    override fun getFrameSkip(): Int {
+        return preferences.getString("video_frameskip", "0")?.toIntOrNull() ?: 0
+    }
+
     override fun getMicSource(): MicSource {
-        val micSourcePreference = preferences.getString("mic_source", "blow")!!
-        return enumValueOfIgnoreCase(micSourcePreference)
+        // Microphone support has been removed
+        return MicSource.NONE
     }
 
     override fun getRomSortingMode(): SortingMode {
@@ -484,26 +488,6 @@ class SharedPreferencesSettingsRepository(
         return getOrCreatePreferenceSharedFlow("input_opacity") {
             preferences.getInt("input_opacity", 50)
         }
-    }
-
-    override fun isRetroAchievementsRichPresenceEnabled(): Boolean {
-        return preferences.getBoolean("ra_rich_presence", true)
-    }
-
-    override fun isRetroAchievementsHardcoreEnabled(): Boolean {
-        return preferences.getBoolean("ra_hardcore_enabled", false)
-    }
-
-    override fun areRetroAchievementsActiveChallengeIndicatorsEnabled(): Boolean {
-        return preferences.getBoolean("ra_active_challenge_indicators", true)
-    }
-
-    override fun areRetroAchievementsProgressIndicatorsEnabled(): Boolean {
-        return preferences.getBoolean("ra_progress_indicators", true)
-    }
-
-    override fun areRetroAchievementsLeaderboardIndicatorsEnabled(): Boolean {
-        return preferences.getBoolean("ra_leaderboard_indicators", true)
     }
 
     override fun areCheatsEnabled(): Boolean {

@@ -9,10 +9,8 @@ import me.magnum.melonds.domain.model.RomInfo
 import me.magnum.melonds.domain.model.RomMetadata
 import me.magnum.melonds.domain.model.rom.Rom
 import java.io.InputStream
-import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
-import java.security.MessageDigest
 import kotlin.experimental.and
 import kotlin.math.min
 
@@ -96,26 +94,10 @@ object RomProcessor {
 		val developerName = romStreamProcessor.getValue<String>(KEY_DEVELOPER_NAME)
 		val isDsiWareTitle = romStreamProcessor.getValue<Boolean>(KEY_ROM_IS_DSIWARE_TITLE)
 
-		val header = romStreamProcessor.getValue<ByteArray>(KEY_HEADER)
-		val arm9Bootcode = romStreamProcessor.getValue<ByteArray>(KEY_ARM9_BOOTCODE)
-		val arm7Bootcode = romStreamProcessor.getValue<ByteArray>(KEY_ARM7_BOOTCODE)
-		val banner = romStreamProcessor.getValue<ByteArray>(KEY_BANNER)
-
-		val retroAchievementsMd5Digest = MessageDigest.getInstance("MD5").run {
-			update(header)
-			update(arm9Bootcode)
-			update(arm7Bootcode)
-			update(banner)
-			digest()
-		}
-
-		val retroAchievementsHash = BigInteger(1, retroAchievementsMd5Digest).toString(16).padStart(32, '0')
-
 		return RomMetadata(
 			romName,
 			developerName,
 			isDsiWareTitle,
-			retroAchievementsHash,
 		)
 	}
 

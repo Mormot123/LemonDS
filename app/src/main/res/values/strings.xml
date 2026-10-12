@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">melonDS</string>
+    <string name="app_name">LemonDS</string>
 
     <string name="ok">OK</string>
     <string name="yes">Yes</string>
@@ -63,32 +63,23 @@
     <string name="download_progress_sizes">%1$.1fMB/%2$.1fMB</string>
     <string name="update_download_failed">Failed to download update</string>
 
-    <string name="dsiware_manager">DSiWare Manager</string>
-    <string name="no_dsiware_titles_installed">You don\'t have any DSiWare title installed</string>
-    <string name="dsiware_manager_no_dsi_setup">You haven\'t setup the DSi system</string>
-    <string name="dsiware_manager_invalid_dsi_setup">Your DSi system setup is invalid</string>
-    <string name="import_dsiware_title">Import DSiWare title</string>
-    <string name="dsiware_manager_setup">Setup</string>
-    <string name="dsiware_manager_fix_setup">Fix setup</string>
-    <string name="dsiware_manager_load_error">There was a problem listing your DSiWare titles. Please check your DSi setup</string>
-    <string name="dsiware_manager_import_title_error_open_nand_failed">The NAND could not be opened</string>
-    <string name="dsiware_manager_import_title_error_open_file_failed">Error opening selected file</string>
-    <string name="dsiware_manager_import_title_error_not_dsiware_title">Not a DSiWare title</string>
-    <string name="dsiware_manager_import_title_error_title_already_imported">DSiWare title already imported</string>
-    <string name="dsiware_manager_import_title_error_insatll_failed">Failed to install title</string>
-    <string name="dsiware_manager_import_title_error_metadat_fetch_failed">Failed to download title metadata. Check your internet connection</string>
-    <string name="dsiware_manager_import_title_error_unknown">An unknown error occurred</string>
-    <string name="dsiware_manager_import_data">Import data…</string>
-    <string name="dsiware_manager_export_data">Export data…</string>
-    <string name="dsiware_manager_import_file_success">%1$s imported successfully</string>
-    <string name="dsiware_manager_import_file_error">Failed to import file</string>
-    <string name="dsiware_manager_export_file_success">%1$s exported successfully</string>
-    <string name="dsiware_manager_export_file_error">Failed to export file</string>
-    <string name="dsiware_import_from_file">From file</string>
-    <string name="dsiware_import_from_rom_list">From ROM list</string>
+    <string name="lan_multiplayer">LAN multiplayer</string>
+    <string name="lan_host_big">HOST</string>
+    <string name="lan_join_big">JOIN</string>
+    <string name="lan_looking_for_host">Looking for the host…</string>
+    <string name="lan_looking_for_host_hint">Make sure the other device has tapped HOST and is on the same Wi-Fi</string>
+    <string name="lan_waiting_for_player">Waiting for the other device…</string>
+    <string name="lan_waiting_hint">Tap JOIN on the other device. Both devices must be on the same Wi-Fi</string>
+    <string name="lan_connected_big">Connected!</string>
+    <string name="lan_host_failed">Could not start the LAN game. Check that Wi-Fi is connected</string>
+    <string name="lan_discovery_failed">Could not start searching for games. Check that Wi-Fi is connected</string>
+    <string name="lan_session_hint">Go back to the game list and start the same game on every device</string>
+    <string name="lan_player_you">%1$s (you)</string>
+    <string name="lan_ping">%1$d ms</string>
+    <string name="lan_pick_game">Pick a game</string>
+    <string name="lan_leave_session">Leave session</string>
 
-    <string name="select_dsiware_title">Select DSiWare title</string>
-    <string name="no_dsiware_roms_found">No DSiWare ROMs found</string>
+
 
     <string name="info_fps">FPS: %1$d</string>
     <string name="info_play_time_hours_minutes">Play time: %1$dh %2$dm</string> <!-- Ex: 4h 28m -->
@@ -100,11 +91,9 @@
     <string name="cant_load_empty_slot">Can\'t load an empty save state slot</string>
     <string name="failed_reset_emulation">Failed to reset emulation</string>
     <string name="save_states_not_supported">Save states are not supported while running the firmware</string>
-    <string name="save_states_unavailable_ra_hardcore_enabled">Save states are unavailable while Hardcore mode is enabled</string>
     <string name="rewind_time_seconds">%1$ss</string> <!-- Ex: 43.56s -->
     <string name="rewind_time_minutes_seconds">%1$dm%2$ss</string> <!-- Ex: 2m37.93s -->
     <string name="rewind_not_enabled">Rewind is not enabled</string>
-    <string name="rewind_unavailable_ra_hardcore_enabled">Rewind is unavailable while Hardcore mode is enabled</string>
     <string name="no_image_selected">No image selected</string>
     <string name="failed_to_load_image">Failed to load image</string>
     <string name="emulator_stop_gba_mode_unsupported">GBA mode is not supported</string>
@@ -115,8 +104,6 @@
 
     <string name="ds_bios_dir_not_set">DS BIOS directory not set</string>
     <string name="ds_bios_dir_not_set_info">DS BIOS directory is not set. Select the directory that contains the following files:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
-    <string name="dsi_bios_dir_not_set">DSi BIOS directory not set</string>
-    <string name="dsi_bios_dir_not_set_info">DSi BIOS directory is not set. Select the directory that contains the following files:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
     <string name="incorrect_bios_dir">Incorrect BIOS directory</string>
     <string name="ds_incorrect_bios_dir_info">The BIOS directory for the DS system is not correct. Make sure that the selected directory contains the following files:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
     <string name="dsi_incorrect_bios_dir_info">The BIOS directory for the DSi system is not correct. Make sure that the selected directory that contains the following files:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
@@ -136,10 +123,6 @@
     <string name="rom_launch_custom_bios_firmware_bad_setup">This ROM is set to run using a custom BIOS and firmware, but it\'s not properly configured.</string>
     <string name="firmware_launch_failed">Failed to launch the firmware</string>
     <string name="firmware_launch_bad_setup">To launch this firmware, a custom BIOS and firmware is required, but it\'s not properly configured.</string>
-    <string name="failed_launch_dsiware_title">Failed to launch DSiWare title</string>
-    <string name="failed_launch_dsiware_title_check_failed">Could not verify if the DSiWare title is installed. Check the DSiWare Manager for more information.</string>
-    <string name="failed_launch_dsiware_title_rom_failed">Could not parse the ROM file. Check if the ROM file is valid and it\'s not corrupted.</string>
-    <string name="failed_launch_dsiware_title_not_installed">To launch a DSiWare title, it must first be installed to the NAND. You can install it in the DSiWare Manager.</string>
 
     <string name="press_any_button">Press any button…</string>
     <string name="waiting_for_input">Waiting for input…</string>
@@ -147,7 +130,6 @@
     <string name="choose_component">Choose component</string>
 
     <string name="pause">Pause</string>
-    <string name="achievements">Achievements</string>
     <string name="reset">Reset</string>
     <string name="exit">Exit</string>
 
@@ -175,6 +157,8 @@
     <string name="rewind_max_memory_usage">Max. memory usage: %1$s</string>
     <string name="rewind_memory_usage_above_recommended_limit">Memory usage above recommended limit</string>
     <string name="rewind_window_position">Rewind window position</string>
+    <string name="ui_on_secondary_display">Menus on second screen</string>
+    <string name="ui_on_secondary_display_summary">On devices with two displays, show the game list and menus on the second (touch) screen. Restart the app to apply</string>
     <string name="sustained_performance_mode">Sustained performance mode</string>
     <string name="sustained_performance_mode_summary">When enabled, peak performance will be lower but thermal throttling will be less pronounced.</string>
     <string name="check_for_updates">Check for updates</string>
@@ -192,7 +176,6 @@
     <string name="custom_bios_firmware">Custom BIOS and firmware</string>
     <string name="custom_bios_firmware_description">Using a custom BIOS and firmware allows you to launch and navigate in the DS\'s firmware without loading a ROM, just like in a real system</string>
     <string name="bios_directory">DS BIOS directory</string>
-    <string name="dsi_bios_directory">DSi BIOS directory</string>
     <string name="show_boot_screen">Show boot screen</string>
     <string name="mac_address">MAC address</string>
     <string name="randomize_mac_address">Randomize MAC address</string>
@@ -204,9 +187,9 @@
     <string name="jit_not_supported">JIT is only supported in 64 bit devices.</string>
     <string name="backup_settings">Backup settings</string>
     <string name="restore_settings">Restore settings</string>
-    <string name="settings_backup_success">Settings backup created.\n\nThe following were skipped:\n&#8226; RetroAchievements session\n&#8226; ROM/save directories\n&#8226; DS BIOS directory\n&#8226; DSi BIOS directory</string>
+    <string name="settings_backup_success">Settings backup created.\n\nThe following were skipped:\n&#8226; ROM/save directories\n&#8226; DS BIOS directory\n&#8226; DSi BIOS directory</string>
     <string name="settings_backup_error">Failed to backup settings</string>
-    <string name="settings_restore_success">Settings restored.\n\nThe following were unchanged:\n&#8226; RetroAchievements session\n&#8226; ROM/save directories\n&#8226; DS BIOS directory\n&#8226; DSi BIOS directory</string>
+    <string name="settings_restore_success">Settings restored.\n\nThe following were unchanged:\n&#8226; ROM/save directories\n&#8226; DS BIOS directory\n&#8226; DSi BIOS directory</string>
     <string name="settings_restore_error">Failed to restore settings</string>
     <string name="backup_internal_layout">Backup internal layout</string>
     <string name="backup_external_layout">Backup external layout</string>
@@ -220,6 +203,7 @@
     <string name="internal_layout_restore_error">Failed to restore internal layout</string>
     <string name="external_layout_restore_success">External layout restored.</string>
     <string name="external_layout_restore_error">Failed to restore external layout</string>
+    <string name="frameskip">Frameskip (3D)</string>
     <string name="threaded_rendering">Threaded rendering</string>
     <string name="fps_counter_position">FPS counter position</string>
     <string name="threaded_rendering_summary">Improves performance on 3D games when enabled but may cause graphical glitches.</string>
@@ -228,12 +212,10 @@
     <string name="filter">Filter</string>
     <string name="internal_resolution">Internal resolution</string>
     <string name="renderer">Renderer</string>
-    <string name="dsi_camera_source">DSi camera source</string>
     <string name="external_screen_layout">External screen layout</string>
     <string name="external_display_screen">External display screen</string>
     <string name="external_display_rotate_left">Rotate external screen content left</string>
     <string name="refresh_external_screen">Refresh external screen</string>
-    <string name="dsi_camera_image">DSi camera image</string>
     <string name="internal_screen_layout">Internal screen layout</string>
     <string name="input_refresh_external_screen">Refresh external screen</string>
     <string name="quick_settings">Quick settings</string>
@@ -261,18 +243,6 @@
     <string name="vibrate_on_touch">Vibrate on touch</string>
     <string name="vibration_strength">Vibration strength</string>
     <string name="soft_input_opacity">Soft input opacity</string>
-    <string name="retroachievements">RetroAchievements</string> <!-- Keep words together because this is the official name -->
-    <string name="retroachievements_summary">Login &amp; manage RetroAchievements integration</string> <!-- Keep words together because this is the official name -->
-    <string name="enable_rich_presence">Enable rich presence</string>
-    <string name="rich_presence_summary">Allows other RetroAchievement users to see what you are playing</string>
-    <string name="hardcore_mode">Hardcore mode</string>
-    <string name="hardcore_mode_summary">Allows hardcore achievements to be earned. Cheats, save states, slow-motion, and rewind are disabled</string>
-    <string name="show_active_challenge_indicators">Show active challenge indicators</string>
-    <string name="show_active_challenge_indicators_summary">Shows on-screen indicators while certain achievements can be earned</string>
-    <string name="show_progress_indicators">Show progress indicators</string>
-    <string name="show_progress_indicators_summary">Shows on-screen indicators when progress is made towards an achievement</string>
-    <string name="show_leaderboard_indicators">Show leaderboard indicators</string>
-    <string name="show_leaderboard_indicators_summary">Shows on-screen indicators when a leaderboard attempt is in progress</string>
 
     <string name="cheats">Cheats</string>
     <string name="cheats_summary">Enable &amp; import cheat codes</string>
@@ -321,7 +291,6 @@
     <string name="label_rom_config_gba_rom_path">GBA ROM path</string>
     <string name="label_rom_config_gba_save_path">GBA save path</string>
     <string name="rom_details_configuration_tab">Configuration</string>
-    <string name="retro_achievements_tab">Retro&#8203;Achievements</string> <!-- Keep zero-width space to allow line breaks in the middle of the word -->
 
     <string name="theme_option_light">Light</string>
     <string name="theme_option_dark">Dark</string>
@@ -408,67 +377,8 @@
     <string name="background_deleted">Background deleted</string>
     <string name="background_add_processing_failed">Failed to process the selected background image. Make sure it\'s not corrupted.</string>
 
-    <string name="retro_achievements_login_description">Login with RetroAchievements to view achievements that you can unlock while playing this game!</string>
-    <string name="login_with_retro_achievements">Login with RetroAchievements</string>
-    <string name="login">Login</string>
-    <string name="retroachievements_login_summary">Login with RetroAchievements to unlock achievements while playing!</string>
-    <string name="retroachievements_login_status">Logged in as %1$s</string>
-    <string name="retroachievements_login_expired_status">Your RetroAchievements login expired. Click to log in again</string>
-    <string name="retroachievements_logout">Logout</string>
-    <string name="retroachievements_logout_confirmation">Are you sure you want to logout from RetroAchievements? You won\'t be able to unlock achievements while playing.</string>
-    <string name="retro_achievements_login_error">There was a problem when trying to login. Make sure that your username and password are correct, and that you are connected to the internet</string>
-    <string name="retro_achievements_login_error_short">There was a problem when trying to login</string>
-    <string name="retro_achievements_load_error">There was a problem when trying to load the achievements for this game. Make sure you are connected to the internet and try again later</string>
-    <string name="retro_achievements_no_achievements">No RetroAchievements were found for this game</string>
-    <string name="retro_achievements_relaunch_to_apply_settings">Relaunch the ROM to apply the new RetroAchievements settings</string>
-    <string name="retro_achievements_pending_unlocks">Pending Unlocks</string>
-    <string name="retro_achievements_active_challenges">Active Challenges</string>
-    <string name="retro_achievements_recently_unlokced">Recently Unlocked</string>
-    <string name="retro_achievements_almost_there">Almost There</string>
-    <string name="retro_achievements_locked">Locked</string>
-    <string name="retro_achievements_unlocked">Unlocked</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="retry">Retry</string>
-    <string name="points_abbreviated">PTS</string>
-    <string name="points">Points</string>
-    <string name="completed">Completed</string>
-    <string name="ra_mode_hardcore">Hardcore</string>
-    <string name="ra_mode_softcore">Softcore</string>
-    <string name="ra_base_set">Base Set</string>
-    <string name="view_achievement">View achievement</string>
-    <string name="completed_achievements"><b>%1$d</b> of <b>%2$d</b> (%3$d%%)</string>
-    <string name="submitting_achievements">Submitting RetroAchievements…</string>
-    <string name="achievements_loaded">Achievements loaded</string>
-    <string name="achievements_unlocked_compact">Unlocked: %1$d/%2$d</string>
-    <string name="game_has_no_achievements">This game has no achievements</string>
-    <string name="achievements_failed_load">Failed to load achievements!</string>
-    <string name="achievements_failed_load_tip">Make sure you are Online</string>
-    <string name="achievements_login_expired">RetroAchievements login expired!</string>
-    <string name="achievements_login_expired_tip">Log in again to enable RetroAchievements</string>
-    <string name="achievement_unlocked">Achievement unlocked!</string>
-    <string name="achievement_missable">Missable</string>
-    <string name="achievement_missable_description">This achievement can be missed during a playthrough</string>
-    <string name="achievement_progress">%1$d/%2$d</string> <!-- Eg.: 12/38 -->
-    <string name="challenge_started">Challenge started</string>
-    <string name="leaderboard_attempt_started">Leaderboard attempt started!</string>
-    <string name="leaderboard_submission_info">%1$s • Rank %2$d of %3$d</string> <!-- Eg.: 01:42.95 • Rank 73 of 145 -->
-    <string name="game_completed">Completed %1$s</string>
-    <string name="game_mastered">Mastered %1$s</string>
-    <string name="retroachievements_unsynchronized_data">Un-synchronized RetroAchievements data</string>
-    <string name="retroachievements_unsynchronized_data_info">There is un-synchronized RetroAchievements data. The following operations are pending:</string>
-    <plurals name="retroachievements_pending_achievement_unlocks">
-        <item quantity="one">%d achievement unlock</item>
-        <item quantity="other">%d achievement unlocks</item>
-    </plurals>
-    <plurals name="retroachievements_pending_leaderboard_entries">
-        <item quantity="one">%d leaderboard entry</item>
-        <item quantity="other">%d leaderboard entries</item>
-    </plurals>
-    <string name="retroachievements_unsynchronized_data_connect_internet">Connect to the internet to synchronize the data.</string>
-    <string name="retroachievements_unsynchronized_data_loss_info">If you exit now, this data will be lost!</string>
-    <string name="retroachievements_unsynchronized_data_synchronized">All data has been synchronized!</string>
-    <string name="retroachievements_unsynchronized_data_exiting">The emulator will now exit.</string>
 
     <string-array name="fast_forward_speed_multiplier_options">
         <item>Unlimited</item>
@@ -487,7 +397,6 @@
     <string-array name="game_runtime_console_type_options">
         <item>Default</item>
         <item>@string/console_ds</item>
-        <item>@string/console_dsi</item>
     </string-array>
 
     <string-array name="firmware_settings_language_options">
@@ -513,11 +422,6 @@
         <item>Memory expansion</item>
         <item>Motion Pak (Homebrew)</item>
         <item>Motion Pak (Retail)</item>
-    </string-array>
-
-    <string-array name="console_type_options">
-        <item>@string/console_ds</item>
-        <item>@string/console_dsi</item>
     </string-array>
 
     <string-array name="fps_counter_position_options">
@@ -547,6 +451,13 @@
         <item>8x native (2048x1536)</item>
     </string-array>
 
+    <string-array name="video_frameskip_options">
+        <item>Off</item>
+        <item>Auto (skip only when slow)</item>
+        <item>Skip every other 3D frame</item>
+        <item>Skip 2 of every 3 3D frames</item>
+    </string-array>
+
     <string-array name="video_filtering_options">
         <item>None</item>
         <item>Linear</item>
@@ -555,12 +466,6 @@
         <item>HQ4X</item>
         <item>Quilez</item>
         <item>LCD</item>
-    </string-array>
-
-    <string-array name="dsi_camera_source_options">
-        <item>Black screen</item>
-        <item>Physical cameras</item>
-        <item>Static image</item>
     </string-array>
 
     <string-array name="external_display_screen_options">

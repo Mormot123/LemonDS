@@ -14,7 +14,6 @@ data class Rom(
     var config: RomConfig,
     var lastPlayed: Date? = null,
     val isDsiWareTitle: Boolean,
-    val retroAchievementsHash: String,
     val totalPlayTime: Duration = Duration.ZERO,
 ) {
 

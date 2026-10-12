@@ -28,22 +28,16 @@ import me.magnum.melonds.ui.romdetails.model.RomConfigUiModel
 import me.magnum.melonds.ui.romdetails.model.RomConfigUiState
 import me.magnum.melonds.ui.romdetails.model.RomConfigUpdateEvent
 import me.magnum.melonds.ui.romdetails.model.RomDetailsTab
-import me.magnum.melonds.ui.romdetails.model.RomRetroAchievementsUiState
 import me.magnum.melonds.ui.theme.MelonTheme
-import me.magnum.rcheevosapi.model.RAAchievement
 import java.util.Date
 
 @Composable
 fun RomDetailsScreen(
     rom: Rom,
     romConfigUiState: RomConfigUiState,
-    retroAchievementsUiState: RomRetroAchievementsUiState,
     onNavigateBack: () -> Unit,
     onLaunchRom: (Rom) -> Unit,
     onRomConfigUpdate: (RomConfigUpdateEvent) -> Unit,
-    onRetroAchievementsLogin: (username: String, password: String) -> Unit,
-    onRetroAchievementsRetryLoad: () -> Unit,
-    onViewAchievement: (RAAchievement) -> Unit,
 ) {
     val pagerState = rememberPagerState(
         initialPage = RomDetailsTab.CONFIG.tabIndex,
@@ -112,16 +106,6 @@ fun RomDetailsScreen(
                         onConfigUpdate = onRomConfigUpdate,
                     )
                 }
-                RomDetailsTab.RETRO_ACHIEVEMENTS.tabIndex -> {
-                    RomRetroAchievementsUi(
-                        modifier = Modifier.fillMaxSize().focusRequester(focusRequester),
-                        contentPadding = padding,
-                        retroAchievementsUiState = retroAchievementsUiState,
-                        onLogin = onRetroAchievementsLogin,
-                        onRetryLoad = onRetroAchievementsRetryLoad,
-                        onViewAchievement = onViewAchievement,
-                    )
-                }
             }
         }
 
@@ -145,20 +129,15 @@ private fun PreviewRomScreen() {
                 config = RomConfig(),
                 lastPlayed = Date(),
                 isDsiWareTitle = false,
-                retroAchievementsHash = "",
             ),
             romConfigUiState = RomConfigUiState.Ready(
                 RomConfigUiModel(
                     layoutName = "Default",
                 ),
             ),
-            retroAchievementsUiState = RomRetroAchievementsUiState.LoggedOut(null),
             onNavigateBack = { },
             onLaunchRom = { },
             onRomConfigUpdate = { },
-            onRetroAchievementsLogin = { _, _ -> },
-            onRetroAchievementsRetryLoad = { },
-            onViewAchievement = { },
         )
     }
 }

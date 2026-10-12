@@ -125,16 +125,6 @@ fun RomHeaderUi(
                             )
                         }
                     )
-                    Tab(
-                        selected = pagerState.currentPage == RomDetailsTab.RETRO_ACHIEVEMENTS.tabIndex,
-                        onClick = { onTabClicked(RomDetailsTab.RETRO_ACHIEVEMENTS) },
-                        text = {
-                            Text(
-                                text = stringResource(id = R.string.retro_achievements_tab).uppercase(),
-                                color = MaterialTheme.colors.onSurface
-                            )
-                        }
-                    )
                 }
             }
         }
@@ -292,7 +282,6 @@ private fun PreviewRomHeaderUi() {
                 config = RomConfig(customName = "Layton Custom"),
                 lastPlayed = Date(),
                 isDsiWareTitle = false,
-                retroAchievementsHash = "",
             ),
             pagerState = pagerState,
             initialFocusRequester = remember { FocusRequester() },

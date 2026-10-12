@@ -20,10 +20,8 @@ import me.magnum.melonds.domain.model.camera.DSiCameraSourceType
 import me.magnum.melonds.domain.repositories.SettingsRepository
 import me.magnum.melonds.domain.services.EmulatorManager
 import me.magnum.melonds.impl.camera.DSiCameraSourceMultiplexer
-import me.magnum.melonds.impl.camera.PhysicalDSiCameraSource
 import me.magnum.melonds.impl.camera.StaticImageDSiCameraSource
 import me.magnum.melonds.impl.emulator.AndroidEmulatorManager
-import me.magnum.melonds.impl.emulator.EmulatorSession
 import me.magnum.melonds.impl.emulator.LifecycleOwnerProvider
 import me.magnum.melonds.impl.emulator.SramProvider
 import me.magnum.melonds.impl.image.BitmapFactoryBitmapLoader
@@ -75,17 +73,6 @@ object EmulatorRuntimeModule {
 
     @Provides
     @IntoMap
-    @DSiCameraSourceKey(DSiCameraSourceType.PHYSICAL_CAMERAS)
-    fun providePhysicalDSiCameraSource(
-        @ApplicationContext context: Context,
-        lifecycleOwnerProvider: LifecycleOwnerProvider,
-        permissionHandler: PermissionHandler,
-    ): DSiCameraSource {
-        return PhysicalDSiCameraSource(context, lifecycleOwnerProvider, permissionHandler)
-    }
-
-    @Provides
-    @IntoMap
     @DSiCameraSourceKey(DSiCameraSourceType.STATIC_IMAGE)
     fun provideStaticImageDSiCameraSource(
         @ApplicationContext context: Context,
@@ -127,11 +114,5 @@ object EmulatorRuntimeModule {
             permissionHandler,
             cameraManagerMultiplexer,
         )
-    }
-
-    @Provides
-    @ActivityRetainedScoped
-    fun provideEmulatorSession(): EmulatorSession {
-        return EmulatorSession()
     }
 }

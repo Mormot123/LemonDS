@@ -5,11 +5,6 @@
         <item>linear</item>
     </string-array>
 
-    <string-array name="console_type_values">
-        <item>ds</item>
-        <item>dsi</item>
-    </string-array>
-
     <string-array name="firmware_settings_language_values">
         <item>1</item>
         <item>2</item>
@@ -46,6 +41,13 @@
         <item>8</item>
     </string-array>
 
+    <string-array name="video_frameskip_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
     <string-array name="video_filtering_values">
         <item>none</item>
         <item>linear</item>
@@ -54,12 +56,6 @@
         <item>hq4x</item>
         <item>quilez</item>
         <item>lcd</item>
-    </string-array>
-
-    <string-array name="dsi_camera_source_values">
-        <item>black_screen</item>
-        <item>physical_cameras</item>
-        <item>static_image</item>
     </string-array>
 
     <string-array name="audio_interpolation_values">

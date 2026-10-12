@@ -2,6 +2,10 @@
 #define MELONINSTANCE_H
 
 #include <atomic>
+#include <chrono>
+#include <list>
+#include <memory>
+#include <optional>
 #include <string>
 #include "Args.h"
 #include "Configuration.h"
@@ -12,7 +16,7 @@
 #include "renderer/FrameQueue.h"
 #include "renderer/Renderer.h"
 #include "renderer/ScreenshotRenderer.h"
-#include "retroachievements/RetroAchievementsManager.h"
+#include "Savestate.h"
 #include "net/Net.h"
 
 using namespace melonDS;
@@ -64,14 +68,6 @@ public:
     bool loadState(Savestate* state);
     RewindWindow getRewindWindow();
     bool loadRewindState(RewindSaveState rewindSaveState);
-    void setupAchievements(
-        std::list<RetroAchievements::RAAchievement> achievements,
-        std::list<RetroAchievements::RALeaderboard> leaderboards,
-        std::optional<std::string> richPresenceScript
-    );
-    void unloadRetroAchievementsData();
-    std::string getRichPresenceStatus();
-    std::vector<RetroAchievements::RARuntimeAchievement> getRuntimeAchievements();
 
 private:
     void updateRenderer();
@@ -87,7 +83,6 @@ private:
 
     std::atomic<float> motionData[6] = { 0.0f, 0.0f, 9.80665f, 0.0f, 0.0f, 0.0f };
 
-    std::unique_ptr<RetroAchievements::RetroAchievementsManager> retroAchievementsManager;
     std::unique_ptr<SaveManager> ndsSave;
     std::unique_ptr<SaveManager> gbaSave;
     std::unique_ptr<SaveManager> firmwareSave;

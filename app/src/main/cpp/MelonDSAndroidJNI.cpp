@@ -18,7 +18,6 @@
 #include "MelonDSAndroidInterface.h"
 #include "MelonDSAndroidConfiguration.h"
 #include "MelonDSAndroidCameraHandler.h"
-#include "RetroAchievementsMapper.h"
 #include "performancehint/ThreadSafePerformanceHintSession.h"
 #include "performancehint/PerformanceHintManagerFactory.h"
 
@@ -49,6 +48,8 @@ float fps = 0;
 int targetFps;
 float fastForwardSpeedMultiplier;
 bool limitFps = true;
+volatile int frameSkipMode = 0; // 0 off, 1 auto, 2 skip 1 of 2, 3 skip 2 of 3
+namespace melonDS { extern bool LemonSkip3D; }
 bool isFastForwardEnabled = false;
 
 jobject globalCameraManager;
@@ -150,65 +151,6 @@ Java_me_magnum_melonds_MelonEmulator_setupCheats(JNIEnv* env, jobject thiz, jobj
     }
 
     MelonDSAndroid::setCodeList(internalCheats);
-}
-
-JNIEXPORT void JNICALL
-Java_me_magnum_melonds_MelonEmulator_setupAchievements(JNIEnv* env, jobject thiz, jobjectArray achievements, jobjectArray leaderboards, jstring richPresenceScript)
-{
-    std::list<MelonDSAndroid::RetroAchievements::RAAchievement> internalAchievements;
-    std::list<MelonDSAndroid::RetroAchievements::RALeaderboard> internalLeaderboards;
-    mapAchievementsFromJava(env, achievements, internalAchievements);
-    mapLeaderboardsFromJava(env, leaderboards, internalLeaderboards);
-
-    std::optional<std::string> richPresence = std::nullopt;
-
-    if (richPresenceScript != nullptr)
-    {
-        jboolean isStringCopy;
-        const char* richPresenceString = env->GetStringUTFChars(richPresenceScript, &isStringCopy);
-        richPresence = richPresenceString;
-
-        if (isStringCopy)
-            env->ReleaseStringUTFChars(richPresenceScript, richPresenceString);
-    }
-
-    MelonDSAndroid::setupAchievements(internalAchievements, internalLeaderboards, richPresence);
-}
-
-JNIEXPORT void JNICALL
-Java_me_magnum_melonds_MelonEmulator_unloadRetroAchievementsData(JNIEnv* env, jobject thiz)
-{
-    MelonDSAndroid::unloadRetroAchievementsData();
-}
-
-JNIEXPORT jstring JNICALL
-Java_me_magnum_melonds_MelonEmulator_getRichPresenceStatus(JNIEnv* env, jobject thiz)
-{
-    std::string richPresenceString = MelonDSAndroid::getRichPresenceStatus();
-    if (richPresenceString.empty())
-        return nullptr;
-    else
-        return env->NewStringUTF(richPresenceString.c_str());
-}
-
-JNIEXPORT jobjectArray JNICALL
-Java_me_magnum_melonds_MelonEmulator_getRuntimeAchievements(JNIEnv* env, jobject thiz)
-{
-    jclass simpleRuntimeAchievementClass = env->FindClass("me/magnum/melonds/domain/model/retroachievements/RASimpleRuntimeAchievement");
-    jmethodID simpleRuntimeAchievementConstructor = env->GetMethodID(simpleRuntimeAchievementClass, "<init>", "(JII)V");
-
-    auto runtimeAchievements = MelonDSAndroid::getRuntimeAchievements();
-
-    jobjectArray achievements = env->NewObjectArray(runtimeAchievements.size(), simpleRuntimeAchievementClass, nullptr);
-
-    int index = 0;
-    for (const auto &item: runtimeAchievements)
-    {
-        jobject simpleRuntimeAchievement = env->NewObject(simpleRuntimeAchievementClass, simpleRuntimeAchievementConstructor, item.id, (jint) item.value, (jint) item.target);
-        env->SetObjectArrayElement(achievements, index++, simpleRuntimeAchievement);
-    }
-
-    return achievements;
 }
 
 JNIEXPORT jint JNICALL
@@ -514,6 +456,12 @@ Java_me_magnum_melonds_MelonEmulator_takeScreenshot(JNIEnv* env, jobject thiz)
 }
 
 JNIEXPORT void JNICALL
+Java_me_magnum_melonds_MelonEmulator_setFrameSkip(JNIEnv* env, jobject thiz, jint mode)
+{
+    frameSkipMode = mode;
+}
+
+JNIEXPORT void JNICALL
 Java_me_magnum_melonds_MelonEmulator_setFastForwardEnabled(JNIEnv* env, jobject thiz, jboolean enabled)
 {
     isFastForwardEnabled = enabled;
@@ -617,6 +565,9 @@ void* emulate(void*)
     double lastTick = startTick;
     double lastMeasureFpsTick = startTick;
     double frameLimitError = 0.0;
+    double lastFrameTimeStep = 1000.0 / 60.0;
+    int skipCounter = 0;
+    int consecutiveSkips = 0;
 
     MelonDSAndroid::start();
 
@@ -646,6 +597,22 @@ void* emulate(void*)
 
         pthread_mutex_unlock(&emuThreadMutex);
 
+        // Frameskip: skip 3D drawing on some frames to save CPU (2D keeps updating)
+        bool skip3D = false;
+        int skipMode = frameSkipMode;
+        if (skipMode > 0 && limitFps)
+        {
+            if (skipMode == 1)
+                skip3D = frameLimitError < -(lastFrameTimeStep * 0.2) && consecutiveSkips < 2;
+            else if (skipMode == 2)
+                skip3D = (skipCounter % 2) == 1;
+            else
+                skip3D = (skipCounter % 3) != 0;
+        }
+        skipCounter++;
+        consecutiveSkips = skip3D ? consecutiveSkips + 1 : 0;
+        melonDS::LemonSkip3D = skip3D;
+
         auto frameStart = std::chrono::steady_clock::now();
 
         u32 nLines = MelonDSAndroid::loop();
@@ -661,6 +628,7 @@ void* emulate(void*)
         double frameTimeStep = (double) nLines / ((float) targetFps * 263.0) * 1000.0;
         if (frameTimeStep < 1)
             frameTimeStep = 1;
+        lastFrameTimeStep = frameTimeStep;
 
         if (limitFps)
         {

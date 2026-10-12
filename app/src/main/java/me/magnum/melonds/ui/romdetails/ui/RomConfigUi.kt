@@ -125,17 +125,6 @@ private fun Content(
             enabled = !rom.isDsiWareTitle,
         )
 
-        val micSourceOptions = stringArrayResource(id = R.array.game_runtime_mic_source_options)
-        SingleChoiceItem(
-            name = stringResource(id = R.string.microphone_source),
-            value = micSourceOptions[romConfig.runtimeMicSource.ordinal],
-            items = micSourceOptions.toList(),
-            selectedItemIndex = romConfig.runtimeMicSource.ordinal,
-            onItemSelected = {
-                onConfigUpdate(RomConfigUpdateEvent.RuntimeMicSourceUpdate(RuntimeMicSource.entries[it]))
-            }
-        )
-
         val context = LocalContext.current
         val layoutSelectorLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -153,50 +142,6 @@ private fun Content(
                 layoutSelectorLauncher.launch(intent)
             }
         )
-
-        val gbaSlotOptions = stringArrayResource(id = R.array.gba_slot_options)
-        SingleChoiceItem(
-            name = stringResource(id = R.string.label_rom_config_gba_slot),
-            value = gbaSlotOptions[romConfig.gbaSlotConfig.type.ordinal],
-            items = gbaSlotOptions.toList(),
-            selectedItemIndex = romConfig.gbaSlotConfig.type.ordinal,
-            onItemSelected = {
-                onConfigUpdate(RomConfigUpdateEvent.GbaSlotTypeUpdated(RomGbaSlotConfigUiModel.Type.entries[it]))
-            }
-        )
-
-        val gbaRomSelectorLauncher = rememberLauncherForActivityResult(FilePickerContract(Permission.READ)) { result ->
-            if (result != null) {
-                onConfigUpdate(RomConfigUpdateEvent.GbaRomPathUpdate(result))
-            }
-        }
-        val gbaSaveSelectorLauncher = rememberLauncherForActivityResult(FilePickerContract(Permission.READ_WRITE)) { result ->
-            if (result != null) {
-                onConfigUpdate(RomConfigUpdateEvent.GbaSavePathUpdate(result))
-            }
-        }
-
-        AnimatedVisibility(visible = romConfig.gbaSlotConfig.type == RomGbaSlotConfigUiModel.Type.GbaRom) {
-            Column {
-                ActionLauncherItem(
-                    name = stringResource(id = R.string.label_rom_config_gba_rom_path),
-                    value = romConfig.gbaSlotConfig.gbaRomPath ?: stringResource(id = R.string.not_set),
-                    enabled = true,
-                    onLaunchAction = {
-                        gbaRomSelectorLauncher.launch(Pair(null, null))
-                    }
-                )
-
-                ActionLauncherItem(
-                    name = stringResource(id = R.string.label_rom_config_gba_save_path),
-                    value = romConfig.gbaSlotConfig.gbaSavePath ?: stringResource(id = R.string.not_set),
-                    enabled = true,
-                    onLaunchAction = {
-                        gbaSaveSelectorLauncher.launch(Pair(null, null))
-                    }
-                )
-            }
-        }
 
         Spacer(Modifier.height(contentPadding.calculateBottomPadding()))
     }
@@ -218,7 +163,6 @@ private fun PreviewRomConfigUi() {
                 config = RomConfig(),
                 lastPlayed = Date(),
                 isDsiWareTitle = false,
-                retroAchievementsHash = "",
             ),
             romConfigUiState = RomConfigUiState.Ready(
                 RomConfigUiModel(
